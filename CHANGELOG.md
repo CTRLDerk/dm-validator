@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2] — 2026-10-30
+
+### English
+- Schema 0.1.1: the list of field names taken from the modding guide now holds only field names. Program constants, single letters and value keys quoted in the guide were removed. Check results are unchanged.
+
+### Nederlands
+- Schema 0.1.1: de lijst met veldnamen uit de modding guide bevat nu alleen echte veldnamen. Programmaconstanten, losse letters en waardesleutels die de guide citeert, zijn verwijderd. De uitkomst van de controles is ongewijzigd.
+
 ## [0.1.1] — 2026-10-30
 
 ### English
