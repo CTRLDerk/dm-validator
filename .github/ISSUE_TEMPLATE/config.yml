@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and discussion on the Delta Manager Discord
+    url: https://discord.com/channels/1449372815324086315/1565638540925083658
+    about: Ask questions about the tool or about modding here.
+  - name: Report a security problem privately
+    url: https://github.com/CTRLDerk/dm-validator/security/advisories/new
+    about: Please do not open a public issue for security problems.
