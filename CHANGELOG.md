@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.1] — 2026-10-30
+
+### English
+- The "alternative spellings" line now has a neutral label and says it is not counted as an issue, so it no longer looks like it belongs to the Info count.
+
+### Nederlands
+- De regel met "alternatieve schrijfwijzen" heeft nu een neutraal label en vermeldt dat hij niet als melding telt. Zo lijkt hij niet meer bij de Info-teller te horen.
+
 ## [0.1.0] — 2026-10-30
 
 ### English
