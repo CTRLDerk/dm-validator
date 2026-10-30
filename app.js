@@ -1,7 +1,7 @@
 /* DM Validator UI */
 (function () {
   'use strict';
-  const TOOL_VERSION = '0.1.0';
+  const TOOL_VERSION = '0.1.1';
   const LANGS = ['en', 'nl', 'fr', 'de'];
   const SEVS = ['error', 'warning', 'info'];
   const RANK = { error: 0, warning: 1, info: 2 };
@@ -48,6 +48,7 @@
     document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
   }
   const ICON = {
+    ok: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>',
     caret: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="square" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>',
     error: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg>',
     warning: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="square" aria-hidden="true"><path d="M12 3l9.5 17h-19z"/><path d="M12 10v4M12 17.5v.5"/></svg>',
@@ -404,7 +405,7 @@
     let list = '';
     const nv = st.result.variants.reduce((a, v) => a + v.count, 0);
     if (st.view === 'report' && nv && !st.node) {
-      list += '<details class="variants" id="variants"' + (st.varOpen ? ' open' : '') + '><summary>' + sevChip('info', 'VAR-001') + '<span>' + esc(t('ui.variants', { n: fmtNum(nv) })) + '</span></summary><div class="sub">' + esc(t('ui.variantsSub')) + '</div><table>' +
+      list += '<details class="variants" id="variants"' + (st.varOpen ? ' open' : '') + '><summary><span class="chip b-ok">' + ICON.ok + 'VAR-001</span><span>' + esc(t('ui.variants', { n: fmtNum(nv) })) + '</span></summary><div class="sub">' + esc(t('ui.variantsSub')) + '</div><table>' +
         st.result.variants.slice().sort((a, b) => b.count - a.count).map((v) => '<tr><td class="v">' + esc(JSON.stringify(v.value)) + '</td><td>' + esc(t('lists.' + v.enumKey) || v.enumKey) + '</td><td>' + v.count + t('ui.times') + '</td><td class="v">' + esc(t('ui.line') + ' ' + (st.result.minified ? v.first.line + ':' + v.first.col : v.first.line)) + '</td></tr>').join('') + '</table></details>';
     }
     if (!st.result.msgs.length) {
