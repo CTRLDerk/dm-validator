@@ -294,8 +294,111 @@
         }
       });
     }
+    checkRefs(doc, push);
     msgs.forEach((m, i) => { m.id = 'm' + i; m.path = pathStr(m.segs); });
     return { msgs, variants: Object.values(variants) };
+  }
+
+  // ------------------------------------------------------------------ references between entries
+  // IDs are shared by all categories of a mod (additional categories point to the main lists too).
+  // null, '' and -1 mean "none". Severities follow the vanilla data: what the vanilla databases
+  // also contain is never an error.
+  function checkRefs(doc, push) {
+    const DRIVERS = ['titularDrivers', 'reserveDrivers', 'freeDrivers', 'retiredDrivers'];
+    const cats = [{ c: doc, segs: [], name: '' }];
+    if (Array.isArray(doc.additionalCategories)) doc.additionalCategories.forEach((a, i) => {
+      if (a && a.data && typeof a.data === 'object') cats.push({ c: a.data, segs: ['additionalCategories', i, 'data'], name: a.name || '#' + i });
+    });
+    const KINDS = {
+      driver: DRIVERS, team: ['teams', 'potentialTeams'], sponsor: ['sponsors'], namingSponsor: ['namingSponsors'],
+      engine: ['engines', 'potentialEngines'], academy: ['academies'], staff: ['staff']
+    };
+    // drivers, teams, academies and staff share one ID space across categories;
+    // sponsors, naming sponsors and engines are numbered per category.
+    const GLOBAL = { driver: true, team: true, academy: true, staff: true };
+    const ids = {};
+    for (const k in KINDS) if (GLOBAL[k]) ids[k] = new Map();
+    for (const cat of cats) { cat.ids = {}; cat.engineNames = new Set(); for (const k in KINDS) cat.ids[k] = GLOBAL[k] ? ids[k] : new Map(); }
+    const isNone = (v) => v === null || v === undefined || v === '' || v === -1 || v === '-1';
+    const same = (v) => (typeof v === 'string' && /^-?\d+$/.test(v)) ? Number(v) : v;
+
+    // 1. collect IDs and report duplicates
+    for (const cat of cats) {
+      const { c, segs, name } = cat;
+      for (const kind in KINDS) for (const arr of KINDS[kind]) {
+        const list = c[arr]; if (!Array.isArray(list)) continue;
+        list.forEach((o, i) => {
+          if (!o || typeof o !== 'object') return;
+          if (kind === 'engine' && typeof o.name === 'string') cat.engineNames.add(o.name);
+          if (isNone(o.id)) return;
+          const id = same(o.id), here = { segs: segs.concat(arr, i), label: (o.name || '') + (name ? ' · ' + name : '') };
+          const prev = cat.ids[kind].get(id);
+          if (prev) {
+            push({ sev: 'error', code: 'DUP-002', tpl: 'duplicateId', segs: here.segs.concat('id'), line: lineOf(o, 'id'), entity: here.label, field: 'id', value: short(o.id),
+              vars: { value: o.id, targetKey: kind, other: pathStr(prev.segs) + (prev.label ? ' (' + prev.label + ')' : '') } });
+          } else cat.ids[kind].set(id, here);
+        });
+      }
+    }
+
+    // 2. check references
+    let cur = null; // category being checked
+    function ref(sev, obj, key, kind, segs, entity, fieldLabel, val) {
+      const v = val === undefined ? obj[key] : val;
+      if (isNone(v)) return;
+      const ok = kind === 'engineName' ? cur.engineNames.has(v) : cur.ids[kind].has(same(v));
+      if (ok) return;
+      push({ sev, code: 'REF-001', tpl: 'missingRef', segs, line: lineOf(obj, key), entity, field: fieldLabel || String(key), value: short(v),
+        ref: null, vars: { field: fieldLabel || String(key), value: v, targetKey: kind === 'engineName' ? 'engine' : kind } });
+    }
+    for (const cat of cats) {
+      cur = cat; const { c, segs, name } = cat;
+      const lbl = (o) => (o && o.name ? o.name : '') + (name ? ' · ' + name : '');
+      for (const arr of DRIVERS) (Array.isArray(c[arr]) ? c[arr] : []).forEach((d, i) => {
+        if (!d || typeof d !== 'object') return;
+        const s = segs.concat(arr, i), L = lbl(d);
+        ref('error', d, 'teamId', 'team', s.concat('teamId'), L);
+        ref('warning', d, 'academyId', 'academy', s.concat('academyId'), L);
+        for (const [rel, kind] of [['relations', 'driver'], ['teamRelations', 'team']]) {
+          const r = d[rel]; if (!r || typeof r !== 'object' || Array.isArray(r)) continue;
+          for (const k of Object.keys(r)) if (k !== '__dup') ref('info', r, k, kind, s.concat(rel, k), L, rel, k);
+        }
+      });
+      for (const arr of ['teams', 'potentialTeams']) (Array.isArray(c[arr]) ? c[arr] : []).forEach((t, i) => {
+        if (!t || typeof t !== 'object') return;
+        const s = segs.concat(arr, i), L = lbl(t), potential = arr === 'potentialTeams';
+        for (const k of ['pilots', 'reserves']) (Array.isArray(t[k]) ? t[k] : []).forEach((p, j) => {
+          if (p && typeof p === 'object') ref('error', p, 'id', 'driver', s.concat(k, j, 'id'), L, k + '[].id');
+          else ref('error', t[k], j, 'driver', s.concat(k, j), L, k + '[]');
+        });
+        (Array.isArray(t.drivers) ? t.drivers : []).forEach((p, j) => {
+          if (p && typeof p === 'object') ref('info', p, 'id', 'driver', s.concat('drivers', j, 'id'), L, 'drivers[].id');
+          else ref('info', t.drivers, j, 'driver', s.concat('drivers', j), L, 'drivers[]');
+        });
+        const dca = t.driverCarAssignment;
+        if (dca && typeof dca === 'object' && !Array.isArray(dca)) {
+          const cars = new Set((Array.isArray(t.cars) ? t.cars : []).map((x) => x && x.id));
+          for (const k of Object.keys(dca)) {
+            if (k === '__dup') continue;
+            ref('info', dca, k, 'driver', s.concat('driverCarAssignment', k), L, 'driverCarAssignment', k);
+            if (!isNone(dca[k]) && !cars.has(dca[k])) push({ sev: 'warning', code: 'REF-001', tpl: 'missingRef', segs: s.concat('driverCarAssignment', k), line: lineOf(dca, k), entity: L,
+              field: 'driverCarAssignment.' + k, value: short(dca[k]), vars: { field: 'driverCarAssignment.' + k, value: dca[k], targetKey: 'car' } });
+          }
+        }
+        (Array.isArray(t.sponsors) ? t.sponsors : []).forEach((sp, j) => { if (sp && typeof sp === 'object') ref('warning', sp, 'sponsorId', 'sponsor', s.concat('sponsors', j, 'sponsorId'), L, 'sponsors[].sponsorId'); });
+        if (t.namingSponsor && typeof t.namingSponsor === 'object') ref('warning', t.namingSponsor, 'sponsorId', 'namingSponsor', s.concat('namingSponsor', 'sponsorId'), L, 'namingSponsor.sponsorId');
+        ref(potential ? 'info' : 'warning', t, 'engine', 'engineName', s.concat('engine'), L);
+        ref('warning', t, 'ownedEngineId', 'engineName', s.concat('ownedEngineId'), L);
+        ref('warning', t, 'preferredEngineId', 'engineName', s.concat('preferredEngineId'), L);
+        ref('warning', t, 'engineId', 'engine', s.concat('engineId'), L);
+        ref('warning', t, 'academyId', 'academy', s.concat('academyId'), L);
+      });
+      (Array.isArray(c.academies) ? c.academies : []).forEach((a, i) => { if (a && typeof a === 'object') ref('warning', a, 'teamId', 'team', segs.concat('academies', i, 'teamId'), lbl(a)); });
+      (Array.isArray(c.staff) ? c.staff : []).forEach((a, i) => { if (a && typeof a === 'object') ref('warning', a, 'teamId', 'team', segs.concat('staff', i, 'teamId'), lbl(a)); });
+      for (const arr of ['engines', 'potentialEngines']) (Array.isArray(c[arr]) ? c[arr] : []).forEach((e, i) => {
+        if (e && Array.isArray(e.teamIds)) e.teamIds.forEach((x, j) => ref('warning', e.teamIds, j, 'team', segs.concat(arr, i, 'teamIds', j), lbl(e), 'teamIds[]'));
+      });
+    }
   }
 
   // ------------------------------------------------------------------ tree helpers (lazy children)

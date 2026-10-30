@@ -92,7 +92,9 @@
   "notAMod": "Dit is geen mod-bestand: het hoogste niveau moet een object zijn.",
   "outOfRange": "{field} = {value} valt buiten het bereik {range}.",
   "missing": "{field} ontbreekt. De game gebruikt de standaardwaarde.",
-  "duplicateKey": "{field} staat twee keer in hetzelfde object. Alleen de laatste telt."
+  "duplicateKey": "{field} staat twee keer in hetzelfde object. Alleen de laatste telt.",
+  "missingRef": "{field} = {value}: er bestaat geen {target} met dit ID of deze naam.",
+  "duplicateId": "ID {value} wordt door meer dan één {target} gebruikt. Ook gebruikt door: {other}."
  },
  "syntax": {
   "JSON-001": "Komma na het laatste item.",
@@ -118,6 +120,18 @@
   "MISS-001": "Ontbrekend veld",
   "DUP-001": "Dubbel veld",
   "JSON": "Ongeldige JSON",
-  "VAR-001": "Alternatieve schrijfwijze"
+  "VAR-001": "Alternatieve schrijfwijze",
+  "REF-001": "Ontbrekende verwijzing",
+  "DUP-002": "Dubbel ID"
+ },
+ "targets": {
+  "driver": "coureur",
+  "team": "team",
+  "sponsor": "sponsor",
+  "namingSponsor": "titelsponsor",
+  "engine": "motor",
+  "academy": "academie",
+  "staff": "staflid",
+  "car": "auto"
  }
 }

@@ -89,7 +89,7 @@ Drag in a `slot_N.json` file and get a report per section (teams, drivers, spons
 - Read-only: the validator never changes a file.
 
 ### Phase 2 — Validator v1.1
-- **References:** does every driver's `teamId` point to an existing team? Duplicate IDs?
+- **References:** does every driver's `teamId` point to an existing team? Duplicate IDs? ✅ (v0.2.0)
 - **Assets:** optionally select the game's `resources/` folder to check that every portrait, team logo and sponsor logo exists.
 - **Track check** (read-only), shows what the AI will do with the current settings:
   - fuel range shorter than tyre life → fuel decides the stops
