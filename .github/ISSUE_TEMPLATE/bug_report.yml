@@ -1,0 +1,39 @@
+name: Bug report
+description: A false alarm, a missed problem, or something that does not work.
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of problem?
+      options:
+        - False alarm (the tool reports something that is fine in the game)
+        - Missed problem (the game has a problem the tool does not report)
+        - The page does not work or looks wrong
+        - Translation
+        - Accessibility
+    validations:
+      required: true
+  - type: textarea
+    id: report
+    attributes:
+      label: Report
+      description: Paste the "Copy for Discord" report or the relevant lines of the .txt export.
+      render: text
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+      description: For a false alarm or missed problem, say what the game does with this value, if you tested it in-game.
+    validations:
+      required: true
+  - type: textarea
+    id: json
+    attributes:
+      label: JSON around the problem (optional)
+      description: A few lines only. Do not paste someone else's mod without permission.
+      render: json
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and version (if the page itself has a problem)

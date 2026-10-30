@@ -1,0 +1,28 @@
+name: Rule or value
+description: Suggest a new check, or a value or field that should be allowed.
+labels: ["schema"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What should change?
+      description: For example "characteristic 'Fêtard' should be allowed" or "check that every driver's teamId exists".
+    validations:
+      required: true
+  - type: dropdown
+    id: source
+    attributes:
+      label: Where does this come from?
+      options:
+        - Official modding guide
+        - Vanilla database
+        - Saved by the game editor
+        - In-game test
+        - Idea, not checked yet
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Details
+      description: Guide chapter, a few lines of JSON, or what you saw in the game.
