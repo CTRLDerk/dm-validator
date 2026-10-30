@@ -69,7 +69,8 @@
   "workerFail": "Something went wrong while checking: {msg}",
   "images": "No image assigned",
   "imagesSub": "Tip, not an issue: these entries have no picture yet. Click a name to find it in the structure.",
-  "andMore": "+ {n} more"
+  "andMore": "+ {n} more",
+  "privacyNote": "Your file never leaves your browser. The page only counts anonymous usage (GoatCounter, no cookies): visits, number of checks and which exports are used."
  },
  "lists": {
   "drivingStyles": "Driving styles",

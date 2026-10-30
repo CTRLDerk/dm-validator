@@ -1,7 +1,7 @@
 /* DM Validator UI */
 (function () {
   'use strict';
-  const TOOL_VERSION = '0.3.1';
+  const TOOL_VERSION = '0.3.2';
   const LANGS = ['en', 'nl', 'fr', 'de'];
   const SEVS = ['error', 'warning', 'info'];
   const RANK = { error: 0, warning: 1, info: 2 };
@@ -40,6 +40,10 @@
   const ruleName = (code, T) => { const tab = (T || st.T).rules; return tab[code] || tab[code.split('-')[0]] || code; };
   const loc = (m) => m.line === undefined ? '' : (st.result && st.result.minified ? m.line + ':' + m.col : String(m.line));
   const fmtNum = (n) => n.toLocaleString(st.lang);
+  // anonymous usage counts (GoatCounter, no cookies); never sends file names or contents
+  function track(name) {
+    try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: name, title: name, event: true }); } catch (e) { /* ignore */ }
+  }
   function reveal(sel) { const el = document.querySelector(sel); if (el) el.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
   let toastTimer = null;
   function toast(msg) { st.toast = msg; render(); clearTimeout(toastTimer); toastTimer = setTimeout(() => { st.toast = ''; render(); }, 1800); }
@@ -90,13 +94,14 @@
     if (m.id !== st.checkId) return;
     if (m.type === 'syntax') {
       st.syntax = m; st.result = { msgs: [{ id: 's0', sev: 'error', code: m.code, syntax: true, detail: m.detail, line: m.line, col: m.col, segs: [], path: '', entity: st.file.name, field: '', value: '' }], variants: [], lines: m.lines, minified: m.lines <= 1 && st.text.length > 2000 };
-      st.view = 'broken'; render(); return;
+      st.view = 'broken'; render(); track('check/invalid-json'); return;
     }
     if (m.type === 'result') {
       st.syntax = null;
       st.result = { msgs: m.msgs, variants: m.variants, images: m.images || {}, lines: m.lines, minified: m.lines <= 3 && st.text.length > 2000, ms: m.ms, entities: countEntities(m.root) };
       st.tree = { expanded: new Set(), kids: new Map([[key([]), m.root]]), sel: null };
-      buildCounts(); st.view = 'report'; render(); return;
+      buildCounts(); st.view = 'report'; render();
+      const sc = sevCounts(); track(sc.error ? 'check/errors' : sc.warning ? 'check/warnings' : 'check/clean'); return;
     }
     if (m.type === 'fatal') { st.view = 'empty'; render(); toast(t('ui.workerFail', { msg: m.message })); }
   }
@@ -112,7 +117,7 @@
   function readFile(f) {
     if (!f) return;
     const r = new FileReader();
-    r.onload = () => check(f.name, String(r.result));
+    r.onload = () => { track('load/file'); check(f.name, String(r.result)); };
     r.readAsText(f, 'utf-8');
   }
 
@@ -373,6 +378,7 @@
       '<div class="row"><button class="btn btn-primary" data-act="choose">' + esc(t('ui.choose')) + '</button><button class="btn" data-act="paste">' + esc(t('ui.paste')) + '</button></div>' +
       '<input type="file" id="file" accept=".json,application/json" class="sr" tabindex="-1">' +
       '</div></div>' +
+      '<p class="privnote">' + esc(t('ui.privacyNote')) + '</p>' +
       (st.pasteOpen ? '<div class="plate pastebox"><label for="pastebox">' + esc(t('ui.paste')) + '</label><textarea id="pastebox" placeholder="' + esc(t('ui.pastePh')) + '"></textarea><div class="row" style="justify-content:flex-end"><button class="btn btn-primary" data-act="checkPaste">' + esc(t('ui.check')) + '</button></div></div>' : '') +
       '</div></div>';
   }
@@ -509,7 +515,7 @@
       case 'new': st.view = 'empty'; st.result = null; st.syntax = null; break;
       case 'choose': document.getElementById('file').click(); return;
       case 'paste': st.pasteOpen = !st.pasteOpen; render(); { const el = document.getElementById('pastebox'); if (el) el.focus(); } return;
-      case 'checkPaste': { const v = document.getElementById('pastebox').value; if (v.trim()) check('pasted.json', v); return; }
+      case 'checkPaste': { const v = document.getElementById('pastebox').value; if (v.trim()) { track('load/paste'); check('pasted.json', v); } return; }
       case 'collapse': st.tree.expanded.clear(); break;
       case 'toggle': {
         const k = b.dataset.k; const segs = JSON.parse(k);
@@ -538,13 +544,14 @@
       case 'exportMenu': st.exportOpen = !st.exportOpen; break;
       case 'export': {
         const x = b.dataset.x; st.exportOpen = false;
+        track('export/' + x.toLowerCase());
         if (x === 'txt') exportTxt(); else if (x === 'csv') exportCsv(); else if (x === 'json') exportJson();
         else { copy(aiPrompt()); st.prompt = true; st.discord = false; st.ref = null; render(); reveal('.box'); toast(t('ui.promptCopied')); }
         return;
       }
       case 'copyPrompt': copy(aiPrompt()); toast(t('ui.promptCopied')); return;
       case 'closePrompt': st.prompt = false; break;
-      case 'discord': copy(discordParts().text); st.discord = true; st.prompt = false; st.ref = null; render(); reveal('.discord'); toast(t('ui.copied')); return;
+      case 'discord': track('export/discord'); copy(discordParts().text); st.discord = true; st.prompt = false; st.ref = null; render(); reveal('.discord'); toast(t('ui.copied')); return;
       case 'closeDiscord': st.discord = false; break;
     }
     render();
@@ -552,7 +559,7 @@
   document.addEventListener('change', (e) => {
     const el = e.target;
     if (el.id === 'file') { readFile(el.files[0]); el.value = ''; return; }
-    if (el.dataset.change === 'lang') setLang(el.value);
+    if (el.dataset.change === 'lang') { setLang(el.value); track('lang/' + el.value); }
     if (el.dataset.change === 'ref') { st.ref = el.value; render(); }
   });
   let searchTimer = null;

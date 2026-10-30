@@ -6,6 +6,8 @@
 
 Your file never leaves your computer: everything runs in your browser.
 
+The page counts anonymous usage with [GoatCounter](https://www.goatcounter.com) (no cookies, no personal data): visits, the number of checks with their outcome (clean / warnings / errors / invalid JSON), which exports are used and language changes. File names and contents are never sent.
+
 ## What it checks
 
 | Severity | Check | Example |

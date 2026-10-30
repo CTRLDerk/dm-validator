@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.2] — 2026-10-30
+
+### English
+- Anonymous usage counts with GoatCounter (no cookies, no personal data): visits, number of checks and their outcome, exports used and language changes. File names and contents are never sent. A short note under the drop zone explains this.
+
+### Nederlands
+- Anonieme gebruikstelling met GoatCounter (geen cookies, geen persoonsgegevens): bezoeken, aantal controles en de uitkomst, gebruikte exports en taalwissels. Bestandsnamen en inhoud worden nooit verstuurd. Een korte tekst onder het sleepvak legt dit uit.
+
 ## [0.3.1] — 2026-10-30
 
 ### English

@@ -69,7 +69,8 @@
   "workerFail": "Un problème est survenu pendant la vérification : {msg}",
   "images": "Aucune image attribuée",
   "imagesSub": "Conseil, pas un problème : ces éléments n’ont pas encore d’image. Cliquez sur un nom pour le retrouver dans la structure.",
-  "andMore": "+ {n} de plus"
+  "andMore": "+ {n} de plus",
+  "privacyNote": "Votre fichier ne quitte jamais votre navigateur. La page compte seulement une utilisation anonyme (GoatCounter, sans cookies) : visites, nombre de vérifications et exports utilisés."
  },
  "lists": {
   "drivingStyles": "Styles de pilotage",

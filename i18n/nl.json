@@ -69,7 +69,8 @@
   "workerFail": "Er ging iets mis bij het controleren: {msg}",
   "images": "Geen afbeelding toegewezen",
   "imagesSub": "Tip, geen melding: deze onderdelen hebben nog geen afbeelding. Klik op een naam om hem in de structuur te vinden.",
-  "andMore": "+ nog {n}"
+  "andMore": "+ nog {n}",
+  "privacyNote": "Je bestand verlaat je browser nooit. De pagina telt alleen anoniem gebruik (GoatCounter, geen cookies): bezoeken, aantal controles en welke exports worden gebruikt."
  },
  "lists": {
   "drivingStyles": "Rijstijlen",
