@@ -15,12 +15,13 @@ Your file never leaves your computer: everything runs in your browser.
 | 🔴 Error | Reference to a team or driver that does not exist, or the same ID used twice | `teamId: 99` while there is no team 99 |
 | 🟠 Warning | Other broken references | a team sponsor contract with a `sponsorId` that does not exist |
 | 🟠 Warning | Same driver or staff member entered twice | `"Kyle Larson"` as driver 12 and as driver 87 |
-| 🟠 Warning | Image path on one specific computer | `D:\\Steam\\...\\teams\\x.png` → use `./teams/x.png` |
 | 🟠 Warning | Unknown field (the game ignores it) | `drivingstyles` instead of `drivingStyles` |
 | 🟠 Warning | Wrong type | `"level": "7"` (text) instead of `7` |
 | 🟠 Warning | Unknown characteristic | `"pay_driver"` |
 | 🔵 Info | Value outside the editor range | `prestige: 7` (range 1–5) |
 | 🔵 Info | Field missing (the game uses its default) | `retirementAgeMin` |
+
+Entries without an image (leagues, teams, drivers, engines, sponsors…) are listed as a tip, not as an issue.
 
 Alternative spellings that the game accepts (for example `Points` and `points`, or `Boissons` and `boissons`) are summarised in one line. The vanilla databases use them too.
 

@@ -1,7 +1,7 @@
 /* DM Validator UI */
 (function () {
   'use strict';
-  const TOOL_VERSION = '0.3.0';
+  const TOOL_VERSION = '0.3.1';
   const LANGS = ['en', 'nl', 'fr', 'de'];
   const SEVS = ['error', 'warning', 'info'];
   const RANK = { error: 0, warning: 1, info: 2 };
@@ -20,7 +20,7 @@
     file: null, text: '', result: null, syntax: null, checkId: 0,
     tree: { expanded: new Set(), kids: new Map(), sel: null },
     show: { error: true, warning: true, info: true }, search: '', node: null, group: 'list', selMsg: null, msgLimit: MSG_PAGE,
-    ref: null, discord: false, prompt: false, exportOpen: false, toast: '', varOpen: false
+    ref: null, discord: false, prompt: false, exportOpen: false, toast: '', varOpen: false, imgOpen: false
   };
   if (!LANGS.includes(st.lang)) st.lang = 'en';
 
@@ -94,7 +94,7 @@
     }
     if (m.type === 'result') {
       st.syntax = null;
-      st.result = { msgs: m.msgs, variants: m.variants, lines: m.lines, minified: m.lines <= 3 && st.text.length > 2000, ms: m.ms, entities: countEntities(m.root) };
+      st.result = { msgs: m.msgs, variants: m.variants, images: m.images || {}, lines: m.lines, minified: m.lines <= 3 && st.text.length > 2000, ms: m.ms, entities: countEntities(m.root) };
       st.tree = { expanded: new Set(), kids: new Map([[key([]), m.root]]), sel: null };
       buildCounts(); st.view = 'report'; render(); return;
     }
@@ -105,7 +105,7 @@
   function check(name, text) {
     st.file = { name, size: text.length }; st.text = text; st.view = 'busy'; st.checkId++;
     st.show = { error: true, warning: true, info: true }; st.search = ''; st.node = null; st.selMsg = null; st.msgLimit = MSG_PAGE;
-    st.ref = null; st.discord = false; st.prompt = false; st.exportOpen = false; st.pasteOpen = false; st.varOpen = false;
+    st.ref = null; st.discord = false; st.prompt = false; st.exportOpen = false; st.pasteOpen = false; st.varOpen = false; st.imgOpen = false;
     render();
     worker.postMessage({ type: 'check', id: st.checkId, text });
   }
@@ -164,6 +164,34 @@
     if (el) el.scrollIntoView({ block: 'center', behavior: 'smooth' });
   }
 
+  // ------------------------------------------------------------------ images without a picture (tip)
+  const IMG_ORDER = ['categories', 'teams', 'drivers', 'engines', 'sponsors', 'namingSponsors', 'staff', 'journalists'];
+  function imageCounts() {
+    const im = (st.result && st.result.images) || {};
+    return IMG_ORDER.filter((k) => im[k] && im[k].missing.length).map((k) => ({ key: k, n: im[k].missing.length, total: im[k].total, field: im[k].field, label: t('imgTypes.' + k), list: im[k].missing }));
+  }
+  function imagesHtml() {
+    if (st.view !== 'report' || st.node) return '';
+    const rows = imageCounts(); if (!rows.length) return '';
+    const total = rows.reduce((a, r) => a + r.n, 0);
+    return '<details class="variants" id="images"' + (st.imgOpen ? ' open' : '') + '><summary><span class="chip b-ok">' + ICON.info + 'IMG</span><span>' + esc(t('ui.images')) + ' · ' + esc(rows.map((r) => fmtNum(r.n) + ' ' + r.label).join(', ')) + '</span></summary>' +
+      '<div class="sub">' + esc(t('ui.imagesSub')) + '</div><table>' +
+      rows.map((r) => '<tr><td style="white-space:nowrap;font-weight:600">' + esc(r.label) + '</td><td class="v">' + esc(r.field) + '</td><td style="white-space:nowrap">' + fmtNum(r.n) + ' / ' + fmtNum(r.total) + '</td><td>' +
+        r.list.slice(0, 60).map((x) => '<button class="linkbtn" style="min-height:28px;padding:0 4px;font-style:normal;font-weight:500;text-decoration-thickness:1px" data-act="goto" data-segs="' + esc(JSON.stringify(x.segs)) + '">' + esc(x.name) + '</button>').join(' ') +
+        (r.list.length > 60 ? ' <span style="color:var(--muted)">' + esc(t('ui.andMore', { n: r.list.length - 60 })) + '</span>' : '') + '</td></tr>').join('') + '</table></details>';
+  }
+  async function gotoSegs(target) {
+    for (let i = 0; i < target.length; i++) {
+      const p = target.slice(0, i); const k = key(p);
+      if (!st.tree.kids.has(k)) st.tree.kids.set(k, await requestChildren(p, 0));
+      st.tree.expanded.add(k);
+      const kids = st.tree.kids.get(k); const next = target[i];
+      if (typeof next === 'number') while (kids.items.length <= next && kids.items.length < kids.total) { const more = await requestChildren(p, kids.items.length); kids.items = kids.items.concat(more.items); }
+    }
+    st.tree.sel = key(target); render();
+    const el = document.querySelector('[data-row="' + CSS.escape(st.tree.sel) + '"]'); if (el) el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  }
+
   // ------------------------------------------------------------------ reference lists
   function refLists() {
     const S = st.S, out = {};
@@ -200,6 +228,7 @@
     }
     const nv = st.result.variants.reduce((a, v) => a + v.count, 0);
     if (nv) L.push('', t('ui.variants', { n: nv }));
+    const im = imageCounts(); if (im.length) L.push('', t('ui.images') + ': ' + im.map((x) => x.n + '/' + x.total + ' ' + x.label).join(', '));
     download(st.file.name.replace(/\.json$/i, '') + '-report.txt', L.join('\n') + '\n', 'text/plain'); toast(t('ui.saved', { file: 'report.txt' }));
   }
   function exportCsv() {
@@ -257,8 +286,6 @@
         case 'wrongType': return { ask: false, text: v.field + ' is text ("' + v.value + '"); the game expects a number. Change "' + v.value + '" to ' + v.value + '.' };
         case 'duplicateKey': return { ask: true, text: v.field + ' appears twice in the same object. Which of the two values should stay?' };
         case 'missingRef': { const tg = EN.targets[v.targetKey]; return { ask: true, text: v.field + ' = ' + v.value + ': no ' + tg + ' with this ID or name exists in this file. Which existing ' + tg + ' should it point to (list the existing ones from the file as options), or should this reference be removed?' }; }
-        case 'absolutePath': return { ask: false, text: v.field + ' points to a file on one specific computer. Change "' + v.value + '" to "' + v.suggestion + '".' };
-        case 'absolutePathNoSug': return { ask: true, text: v.field + ' points to a file on one specific computer ("' + v.value + '"). Which path inside the game\'s resources folder should it be (for example ./teams/name.png)?' };
         case 'duplicateName': { const tg = EN.targets[v.targetKey]; return { ask: true, text: 'The ' + tg + ' "' + v.value + '" (id ' + v.id + ') appears more than once with a different ID (also: ' + v.other + '). Is this the same person? If yes: which entry should stay, and should all references (teamId, pilots, reserves, relations, driverCarAssignment) be moved to that ID? If no: keep both.' }; }
         case 'duplicateId': { const tg = EN.targets[v.targetKey]; return { ask: true, text: 'ID ' + v.value + ' is used by more than one ' + tg + ' (also: ' + v.other + '). Which entry should get a new ID? Suggest the lowest unused ' + tg + ' ID, and check every place that refers to this ID.' }; }
         default: return { ask: true, text: msgText(m, EN) };
@@ -415,6 +442,7 @@
       list += '<details class="variants" id="variants"' + (st.varOpen ? ' open' : '') + '><summary><span class="chip b-ok">' + ICON.ok + 'VAR-001</span><span>' + esc(t('ui.variants', { n: fmtNum(nv) })) + '</span></summary><div class="sub">' + esc(t('ui.variantsSub')) + '</div><table>' +
         st.result.variants.slice().sort((a, b) => b.count - a.count).map((v) => '<tr><td class="v">' + esc(JSON.stringify(v.value)) + '</td><td>' + esc(t('lists.' + v.enumKey) || v.enumKey) + '</td><td>' + v.count + t('ui.times') + '</td><td class="v">' + esc(t('ui.line') + ' ' + (st.result.minified ? v.first.line + ':' + v.first.col : v.first.line)) + '</td></tr>').join('') + '</table></details>';
     }
+    list += imagesHtml();
     if (!st.result.msgs.length) {
       list += '<div class="ok"><b>' + esc(t('ui.noIssues')) + '</b><span>' + esc(t('ui.noIssuesSub', { n: fmtNum(st.result.entities || 0), game: st.S.gameVersion })) + '</span></div>';
     } else if (!vis.length) list += '<p class="note">' + esc(t('ui.noMessages')) + '</p>';
@@ -498,6 +526,7 @@
       }
       case 'moreKids': { const k = b.dataset.k; const kids = st.tree.kids.get(k); const more = await requestChildren(JSON.parse(k), kids.items.length); kids.items = kids.items.concat(more.items); break; }
       case 'pick': await pickMsg(b.dataset.id); return;
+      case 'goto': await gotoSegs(JSON.parse(b.dataset.segs)); return;
       case 'copyPath': { const m = st.result.msgs.find((x) => x.id === b.dataset.id); copy(m.path); toast(t('ui.pathCopied')); return; }
       case 'ref': st.ref = b.dataset.ref; st.prompt = false; st.discord = false; render(); reveal('.box'); return;
       case 'closeRef': st.ref = null; break;
@@ -530,7 +559,7 @@
   document.addEventListener('input', (e) => {
     if (e.target.dataset.input === 'search') { st.search = e.target.value; clearTimeout(searchTimer); searchTimer = setTimeout(() => { st.msgLimit = MSG_PAGE; render(); }, 150); }
   });
-  document.addEventListener('toggle', (e) => { if (e.target.id === 'variants') st.varOpen = e.target.open; }, true);
+  document.addEventListener('toggle', (e) => { if (e.target.id === 'variants') st.varOpen = e.target.open; if (e.target.id === 'images') st.imgOpen = e.target.open; }, true);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && st.exportOpen) { st.exportOpen = false; render(); } });
   ['dragenter', 'dragover'].forEach((ev) => document.addEventListener(ev, (e) => { e.preventDefault(); if (st.view === 'empty' && !st.over) { st.over = true; render(); } }));
   document.addEventListener('dragleave', (e) => { if (e.relatedTarget === null && st.over) { st.over = false; render(); } });

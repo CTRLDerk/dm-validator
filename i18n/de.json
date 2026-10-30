@@ -66,7 +66,10 @@
   "editorLabel": "Bezeichnung im Editor",
   "fieldsOf": "Felder von {object}",
   "more": "+ {n} weitere · siehe exportierten Bericht",
-  "workerFail": "Beim Prüfen ist etwas schiefgelaufen: {msg}"
+  "workerFail": "Beim Prüfen ist etwas schiefgelaufen: {msg}",
+  "images": "Kein Bild zugewiesen",
+  "imagesSub": "Tipp, keine Meldung: Diese Einträge haben noch kein Bild. Klicke auf einen Namen, um ihn in der Struktur zu finden.",
+  "andMore": "+ {n} weitere"
  },
  "lists": {
   "drivingStyles": "Fahrstile",
@@ -95,9 +98,7 @@
   "duplicateKey": "{field} kommt im selben Objekt zweimal vor. Nur der letzte zählt.",
   "missingRef": "{field} = {value}: Kein(e) {target} mit dieser ID oder diesem Namen vorhanden.",
   "duplicateId": "ID {value} wird von mehr als einem/einer {target} verwendet. Auch verwendet von: {other}.",
-  "duplicateName": "{target} '{value}' (ID {id}) kommt mehrfach mit einer anderen ID vor. Auch: {other}.",
-  "absolutePath": "{field} verweist auf eine Datei auf einem bestimmten PC ({value}). Andere Spieler sehen dieses Bild wahrscheinlich nicht. Verwende stattdessen {suggestion}.",
-  "absolutePathNoSug": "{field} verweist auf eine Datei auf einem bestimmten PC ({value}). Andere Spieler sehen dieses Bild wahrscheinlich nicht. Verwende einen Pfad im resources-Ordner des Spiels, z. B. ./teams/name.png."
+  "duplicateName": "{target} '{value}' (ID {id}) kommt mehrfach mit einer anderen ID vor. Auch: {other}."
  },
  "syntax": {
   "JSON-001": "Komma nach dem letzten Element.",
@@ -126,8 +127,7 @@
   "VAR-001": "Alternative Schreibweise",
   "REF-001": "Fehlender Verweis",
   "DUP-002": "Doppelte ID",
-  "DUP-003": "Doppelter Name",
-  "PATH-001": "Pfad auf einem PC"
+  "DUP-003": "Doppelter Name"
  },
  "targets": {
   "driver": "Fahrer",
@@ -138,5 +138,15 @@
   "academy": "Akademie",
   "staff": "Staffmitglied",
   "car": "Auto"
+ },
+ "imgTypes": {
+  "categories": "Serien",
+  "teams": "Teams",
+  "drivers": "Fahrer",
+  "engines": "Motoren",
+  "sponsors": "Sponsoren",
+  "namingSponsors": "Titelsponsoren",
+  "staff": "Staffmitglieder",
+  "journalists": "Journalisten"
  }
 }

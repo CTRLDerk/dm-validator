@@ -295,9 +295,8 @@
       });
     }
     checkRefs(doc, push);
-    checkPaths(doc, push);
     msgs.forEach((m, i) => { m.id = 'm' + i; m.path = pathStr(m.segs); });
-    return { msgs, variants: Object.values(variants) };
+    return { msgs, variants: Object.values(variants), images: imageSummary(doc) };
   }
 
   // ------------------------------------------------------------------ references between entries
@@ -417,37 +416,45 @@
     }
   }
 
-  // ------------------------------------------------------------------ image paths (only the text in the JSON, no files are read)
-  // A path such as D:\\Steam\\...\\resources\\teams\\x.png only exists on the computer the mod was made on.
-  // workshopCoverImage is skipped: it is only used on the author's PC when uploading to the Workshop.
-  const IMG_KEYS = { image: 1, logo: 1, flag: 1, flagPath: 1, decorBgImage: 1 };
-  const IMG_EXT = /\.(png|jpe?g|webp|gif|svg)$/i;
-  const ABS = /^(?:[A-Za-z]:[\\/]|\\\\|\/(?:Users|home|mnt|Volumes)\/)/;
-  const FOLDERS = ['faces', 'teams', 'sponsors', 'flags', 'engines', 'images', 'tracks', 'categories', 'journalists', 'staff'];
-  function suggestPath(v) {
-    const parts = v.split(/[\\/]+/).filter(Boolean);
-    const file = parts[parts.length - 1];
-    for (let i = parts.length - 2; i >= 0; i--) {
-      if (FOLDERS.includes(parts[i].toLowerCase())) return './' + parts.slice(i).join('/');
-      if (/^(resources|public)$/i.test(parts[i])) break;
+  // ------------------------------------------------------------------ images (tip only)
+  // Absolute paths are fine (the Workshop upload converts them). This only lists entries
+  // that have no image at all. It is a summary, not a list of issues.
+  function imageSummary(doc) {
+    const TYPES = [
+      ['drivers', ['titularDrivers', 'reserveDrivers', 'freeDrivers', 'retiredDrivers'], 'image'],
+      ['teams', ['teams', 'potentialTeams'], 'logo'],
+      ['sponsors', ['sponsors'], 'logo'],
+      ['namingSponsors', ['namingSponsors'], 'logo'],
+      ['engines', ['engines', 'potentialEngines'], 'logo'],
+      ['staff', ['staff'], 'image'],
+      ['journalists', ['journalists'], 'image']
+    ];
+    const has = (v) => typeof v === 'string' && v.trim() !== '';
+    const out = {};
+    const cats = [{ c: doc, segs: [], name: '' }];
+    if (Array.isArray(doc.additionalCategories)) doc.additionalCategories.forEach((a, i) => { if (a && a.data && typeof a.data === 'object') cats.push({ c: a.data, segs: ['additionalCategories', i, 'data'], name: a.name || '#' + i }); });
+    for (const [type, arrs, field] of TYPES) {
+      const r = { field, total: 0, missing: [] };
+      for (const { c, segs, name } of cats) for (const arr of arrs) (Array.isArray(c[arr]) ? c[arr] : []).forEach((o, i) => {
+        if (!o || typeof o !== 'object') return;
+        r.total++;
+        if (!has(o[field])) r.missing.push({ name: (o.name || '#' + i) + (name ? ' · ' + name : ''), segs: segs.concat(arr, i), line: lineOf(c[arr], i) });
+      });
+      if (r.total) out[type] = r;
     }
-    return null;
-  }
-  function checkPaths(doc, push) {
-    (function walk(v, segs, label, parent, key) {
-      if (Array.isArray(v)) { for (let i = 0; i < v.length; i++) walk(v[i], segs.concat(i), label, v, i); return; }
-      if (v && typeof v === 'object') {
-        const lb = typeof v.name === 'string' && v.name ? v.name : label;
-        for (const k of Object.keys(v)) if (k !== '__dup' && k !== 'workshopCoverImage') walk(v[k], segs.concat(k), lb, v, k);
-        return;
-      }
-      if (typeof v !== 'string' || v.length > 1000 || v.startsWith('data:')) return;
-      if (!(IMG_KEYS[key] || IMG_EXT.test(v))) return;
-      if (!ABS.test(v)) return;
-      const sug = suggestPath(v);
-      push({ sev: 'warning', code: 'PATH-001', tpl: sug ? 'absolutePath' : 'absolutePathNoSug', segs, line: lineOf(parent, key), entity: label || '', field: String(key), value: short(v),
-        apply: !!sug, vars: { field: String(key), value: v, suggestion: sug || '' } });
-    })(doc, [], '', null, null);
+    // categories (leagues): main category logo + additional categories
+    const lg = { field: 'logo', total: 0, missing: [] };
+    if (doc.generalData && typeof doc.generalData === 'object') {
+      lg.total++;
+      if (!has(doc.generalData.categoryLogo)) lg.missing.push({ name: doc.generalData.categoryName || 'main', segs: ['generalData'], line: lineOf(doc, 'generalData') });
+    }
+    if (Array.isArray(doc.additionalCategories)) doc.additionalCategories.forEach((a, i) => {
+      if (!a || typeof a !== 'object') return;
+      lg.total++;
+      if (!has(a.logo)) lg.missing.push({ name: a.name || '#' + i, segs: ['additionalCategories', i], line: lineOf(doc.additionalCategories, i) });
+    });
+    if (lg.total) out.categories = lg;
+    return out;
   }
 
   // ------------------------------------------------------------------ tree helpers (lazy children)
@@ -496,6 +503,7 @@
   function resolve(result, idx) {
     for (const m of result.msgs) { const r = lc(idx, m.line); m.line = r.line; m.col = r.col; }
     for (const v of result.variants) { const r = lc(idx, v.first.line); v.first.line = r.line; v.first.col = r.col; }
+    for (const k in (result.images || {})) for (const m of result.images[k].missing) { const r = lc(idx, m.line); m.line = r.line; m.col = r.col; }
     result.lines = idx.length + 1;
     return result;
   }

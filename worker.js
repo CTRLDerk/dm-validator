@@ -22,7 +22,7 @@ self.onmessage = (e) => {
       const t1 = performance.now();
       const res = DMV.resolve(DMV.validate(doc, schema), idx);
       const rootKids = DMV.children(doc, [], 0, 500, idx);
-      self.postMessage({ type: 'result', id: m.id, msgs: res.msgs, variants: res.variants, lines: res.lines,
+      self.postMessage({ type: 'result', id: m.id, msgs: res.msgs, variants: res.variants, images: res.images, lines: res.lines,
         root: rootKids, ms: { parse: Math.round(t1 - t0), check: Math.round(performance.now() - t1) } });
       return;
     }

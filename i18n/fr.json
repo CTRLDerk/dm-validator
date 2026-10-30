@@ -66,7 +66,10 @@
   "editorLabel": "libellé de l’éditeur",
   "fieldsOf": "Champs de {object}",
   "more": "+ {n} de plus · voir le rapport exporté",
-  "workerFail": "Un problème est survenu pendant la vérification : {msg}"
+  "workerFail": "Un problème est survenu pendant la vérification : {msg}",
+  "images": "Aucune image attribuée",
+  "imagesSub": "Conseil, pas un problème : ces éléments n’ont pas encore d’image. Cliquez sur un nom pour le retrouver dans la structure.",
+  "andMore": "+ {n} de plus"
  },
  "lists": {
   "drivingStyles": "Styles de pilotage",
@@ -95,9 +98,7 @@
   "duplicateKey": "{field} apparaît deux fois dans le même objet. Seule la dernière compte.",
   "missingRef": "{field} = {value} : aucun(e) {target} avec cet ID ou ce nom.",
   "duplicateId": "L’ID {value} est utilisé par plus d’un(e) {target}. Aussi utilisé par : {other}.",
-  "duplicateName": "{target} '{value}' (id {id}) apparaît plus d’une fois avec un autre ID. Aussi : {other}.",
-  "absolutePath": "{field} pointe vers un fichier sur un ordinateur précis ({value}). Les autres joueurs ne verront probablement pas cette image. Utilisez plutôt {suggestion}.",
-  "absolutePathNoSug": "{field} pointe vers un fichier sur un ordinateur précis ({value}). Les autres joueurs ne verront probablement pas cette image. Utilisez un chemin dans le dossier resources du jeu, par exemple ./teams/nom.png."
+  "duplicateName": "{target} '{value}' (id {id}) apparaît plus d’une fois avec un autre ID. Aussi : {other}."
  },
  "syntax": {
   "JSON-001": "Virgule après le dernier élément.",
@@ -126,8 +127,7 @@
   "VAR-001": "Orthographe alternative",
   "REF-001": "Référence manquante",
   "DUP-002": "ID en double",
-  "DUP-003": "Nom en double",
-  "PATH-001": "Chemin sur un seul PC"
+  "DUP-003": "Nom en double"
  },
  "targets": {
   "driver": "pilote",
@@ -138,5 +138,15 @@
   "academy": "académie",
   "staff": "membre du staff",
   "car": "voiture"
+ },
+ "imgTypes": {
+  "categories": "championnats",
+  "teams": "équipes",
+  "drivers": "pilotes",
+  "engines": "moteurs",
+  "sponsors": "sponsors",
+  "namingSponsors": "sponsors titres",
+  "staff": "membres du staff",
+  "journalists": "journalistes"
  }
 }
