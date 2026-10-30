@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.3.0] — 2026-10-30
+
+### English
+- New: **image paths**. A warning when an image (`image`, `logo`, `flag`, `flagPath`, `decorBgImage` or any .png/.jpg/.webp/.gif/.svg path) points to a file on one specific computer, such as `D:\Steam\...\resources\teams\x.png`. The message suggests the matching path inside the resources folder (`./teams/x.png`); the AI prompt applies that change directly.
+- Only the text in the JSON is checked; no files on your computer are read. `workshopCoverImage` is skipped, because it is only used when uploading.
+
+### Nederlands
+- Nieuw: **afbeeldingspaden**. Een waarschuwing als een afbeelding (`image`, `logo`, `flag`, `flagPath`, `decorBgImage` of elk .png/.jpg/.webp/.gif/.svg-pad) naar een bestand op één specifieke pc verwijst, zoals `D:\Steam\...\resources\teams\x.png`. De melding stelt het bijbehorende pad binnen de resources-map voor (`./teams/x.png`); de AI-prompt voert die wijziging direct door.
+- Alleen de tekst in de JSON wordt gecontroleerd; er worden geen bestanden op je pc gelezen. `workshopCoverImage` wordt overgeslagen, omdat dat alleen bij het uploaden wordt gebruikt.
+
 ## [0.2.0] — 2026-10-30
 
 ### English
