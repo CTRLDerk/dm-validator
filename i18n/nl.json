@@ -66,7 +66,10 @@
   "editorLabel": "label in editor",
   "fieldsOf": "Velden van {object}",
   "more": "+ {n} meer · zie het geëxporteerde rapport",
-  "workerFail": "Er ging iets mis bij het controleren: {msg}"
+  "workerFail": "Er ging iets mis bij het controleren: {msg}",
+  "images": "Geen afbeelding toegewezen",
+  "imagesSub": "Tip, geen melding: deze onderdelen hebben nog geen afbeelding. Klik op een naam om hem in de structuur te vinden.",
+  "andMore": "+ nog {n}"
  },
  "lists": {
   "drivingStyles": "Rijstijlen",
@@ -95,9 +98,7 @@
   "duplicateKey": "{field} staat twee keer in hetzelfde object. Alleen de laatste telt.",
   "missingRef": "{field} = {value}: er bestaat geen {target} met dit ID of deze naam.",
   "duplicateId": "ID {value} wordt door meer dan één {target} gebruikt. Ook gebruikt door: {other}.",
-  "duplicateName": "{target} '{value}' (id {id}) komt meer dan eens voor met een ander ID. Ook: {other}.",
-  "absolutePath": "{field} verwijst naar een bestand op één specifieke pc ({value}). Andere spelers zien deze afbeelding waarschijnlijk niet. Gebruik {suggestion}.",
-  "absolutePathNoSug": "{field} verwijst naar een bestand op één specifieke pc ({value}). Andere spelers zien deze afbeelding waarschijnlijk niet. Gebruik een pad binnen de resources-map van de game, zoals ./teams/naam.png."
+  "duplicateName": "{target} '{value}' (id {id}) komt meer dan eens voor met een ander ID. Ook: {other}."
  },
  "syntax": {
   "JSON-001": "Komma na het laatste item.",
@@ -126,8 +127,7 @@
   "VAR-001": "Alternatieve schrijfwijze",
   "REF-001": "Ontbrekende verwijzing",
   "DUP-002": "Dubbel ID",
-  "DUP-003": "Dubbele naam",
-  "PATH-001": "Pad op één pc"
+  "DUP-003": "Dubbele naam"
  },
  "targets": {
   "driver": "coureur",
@@ -138,5 +138,15 @@
   "academy": "academie",
   "staff": "staflid",
   "car": "auto"
+ },
+ "imgTypes": {
+  "categories": "competities",
+  "teams": "teams",
+  "drivers": "coureurs",
+  "engines": "motoren",
+  "sponsors": "sponsors",
+  "namingSponsors": "titelsponsors",
+  "staff": "stafleden",
+  "journalists": "journalisten"
  }
 }

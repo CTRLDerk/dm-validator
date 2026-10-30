@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.3.1] — 2026-10-30
+
+### English
+- Removed the image path warning from 0.3.0: absolute paths are fine, because images are converted when the mod is uploaded to the Workshop.
+- New tip instead: **No image assigned**. One collapsible line lists the leagues, teams, drivers, engines, sponsors, naming sponsors, staff and journalists without a picture. Click a name to find it in the structure. It is not counted as an issue and is not part of the Discord report or the AI prompt.
+
+### Nederlands
+- De waarschuwing over afbeeldingspaden uit 0.3.0 is verwijderd: absolute paden zijn prima, omdat afbeeldingen bij het uploaden naar de Workshop worden omgezet.
+- Nieuwe tip in plaats daarvan: **Geen afbeelding toegewezen**. Eén uitklapbare regel toont de competities, teams, coureurs, motoren, sponsors, titelsponsors, stafleden en journalisten zonder afbeelding. Klik op een naam om hem in de structuur te vinden. Telt niet als melding en staat niet in het Discord-rapport of de AI-prompt.
+
 ## [0.3.0] — 2026-10-30
 
 ### English

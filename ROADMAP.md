@@ -90,7 +90,7 @@ Drag in a `slot_N.json` file and get a report per section (teams, drivers, spons
 
 ### Phase 2 — Validator v1.1
 - **References:** does every driver's `teamId` point to an existing team? Duplicate IDs? ✅ (v0.2.0)
-- **Image paths:** warn when a portrait, logo or flag points to a file on one specific computer instead of the game's resources folder. Only the JSON is checked; no local files are read. ✅ (v0.3.0)
+- **Images:** list entries without an image (tip, not an issue). Only the JSON is checked; absolute paths are fine because the Workshop upload converts them. ✅ (v0.3.1)
 - **Track check** (read-only), shows what the AI will do with the current settings:
   - fuel range shorter than tyre life → fuel decides the stops
   - more tyre sets needed than available
