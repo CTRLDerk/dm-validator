@@ -1,6 +1,6 @@
 # Security policy
 
-DM Validator is a static web page. It reads your file in your own browser and does not upload, store or send it anywhere. The only outside requests are for the web fonts.
+DM Validator is a static web page. It reads your file in your own browser and does not upload, store or send it anywhere. The only outside requests are for the web fonts and for anonymous usage counts (GoatCounter, no cookies; file names and contents are never sent).
 
 ## Supported version
 

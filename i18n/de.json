@@ -69,7 +69,8 @@
   "workerFail": "Beim Prüfen ist etwas schiefgelaufen: {msg}",
   "images": "Kein Bild zugewiesen",
   "imagesSub": "Tipp, keine Meldung: Diese Einträge haben noch kein Bild. Klicke auf einen Namen, um ihn in der Struktur zu finden.",
-  "andMore": "+ {n} weitere"
+  "andMore": "+ {n} weitere",
+  "privacyNote": "Deine Datei verlässt nie deinen Browser. Die Seite zählt nur anonyme Nutzung (GoatCounter, ohne Cookies): Besuche, Anzahl der Prüfungen und genutzte Exporte."
  },
  "lists": {
   "drivingStyles": "Fahrstile",
