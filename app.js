@@ -1,7 +1,7 @@
 /* DM Validator UI */
 (function () {
   'use strict';
-  const TOOL_VERSION = '0.2.0';
+  const TOOL_VERSION = '0.3.0';
   const LANGS = ['en', 'nl', 'fr', 'de'];
   const SEVS = ['error', 'warning', 'info'];
   const RANK = { error: 0, warning: 1, info: 2 };
@@ -257,6 +257,8 @@
         case 'wrongType': return { ask: false, text: v.field + ' is text ("' + v.value + '"); the game expects a number. Change "' + v.value + '" to ' + v.value + '.' };
         case 'duplicateKey': return { ask: true, text: v.field + ' appears twice in the same object. Which of the two values should stay?' };
         case 'missingRef': { const tg = EN.targets[v.targetKey]; return { ask: true, text: v.field + ' = ' + v.value + ': no ' + tg + ' with this ID or name exists in this file. Which existing ' + tg + ' should it point to (list the existing ones from the file as options), or should this reference be removed?' }; }
+        case 'absolutePath': return { ask: false, text: v.field + ' points to a file on one specific computer. Change "' + v.value + '" to "' + v.suggestion + '".' };
+        case 'absolutePathNoSug': return { ask: true, text: v.field + ' points to a file on one specific computer ("' + v.value + '"). Which path inside the game\'s resources folder should it be (for example ./teams/name.png)?' };
         case 'duplicateName': { const tg = EN.targets[v.targetKey]; return { ask: true, text: 'The ' + tg + ' "' + v.value + '" (id ' + v.id + ') appears more than once with a different ID (also: ' + v.other + '). Is this the same person? If yes: which entry should stay, and should all references (teamId, pilots, reserves, relations, driverCarAssignment) be moved to that ID? If no: keep both.' }; }
         case 'duplicateId': { const tg = EN.targets[v.targetKey]; return { ask: true, text: 'ID ' + v.value + ' is used by more than one ' + tg + ' (also: ' + v.other + '). Which entry should get a new ID? Suggest the lowest unused ' + tg + ' ID, and check every place that refers to this ID.' }; }
         default: return { ask: true, text: msgText(m, EN) };

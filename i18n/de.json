@@ -95,7 +95,9 @@
   "duplicateKey": "{field} kommt im selben Objekt zweimal vor. Nur der letzte zählt.",
   "missingRef": "{field} = {value}: Kein(e) {target} mit dieser ID oder diesem Namen vorhanden.",
   "duplicateId": "ID {value} wird von mehr als einem/einer {target} verwendet. Auch verwendet von: {other}.",
-  "duplicateName": "{target} '{value}' (ID {id}) kommt mehrfach mit einer anderen ID vor. Auch: {other}."
+  "duplicateName": "{target} '{value}' (ID {id}) kommt mehrfach mit einer anderen ID vor. Auch: {other}.",
+  "absolutePath": "{field} verweist auf eine Datei auf einem bestimmten PC ({value}). Andere Spieler sehen dieses Bild wahrscheinlich nicht. Verwende stattdessen {suggestion}.",
+  "absolutePathNoSug": "{field} verweist auf eine Datei auf einem bestimmten PC ({value}). Andere Spieler sehen dieses Bild wahrscheinlich nicht. Verwende einen Pfad im resources-Ordner des Spiels, z. B. ./teams/name.png."
  },
  "syntax": {
   "JSON-001": "Komma nach dem letzten Element.",
@@ -124,7 +126,8 @@
   "VAR-001": "Alternative Schreibweise",
   "REF-001": "Fehlender Verweis",
   "DUP-002": "Doppelte ID",
-  "DUP-003": "Doppelter Name"
+  "DUP-003": "Doppelter Name",
+  "PATH-001": "Pfad auf einem PC"
  },
  "targets": {
   "driver": "Fahrer",

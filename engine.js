@@ -295,6 +295,7 @@
       });
     }
     checkRefs(doc, push);
+    checkPaths(doc, push);
     msgs.forEach((m, i) => { m.id = 'm' + i; m.path = pathStr(m.segs); });
     return { msgs, variants: Object.values(variants) };
   }
@@ -414,6 +415,39 @@
         if (e && Array.isArray(e.teamIds)) e.teamIds.forEach((x, j) => ref('warning', e.teamIds, j, 'team', segs.concat(arr, i, 'teamIds', j), lbl(e), 'teamIds[]'));
       });
     }
+  }
+
+  // ------------------------------------------------------------------ image paths (only the text in the JSON, no files are read)
+  // A path such as D:\\Steam\\...\\resources\\teams\\x.png only exists on the computer the mod was made on.
+  // workshopCoverImage is skipped: it is only used on the author's PC when uploading to the Workshop.
+  const IMG_KEYS = { image: 1, logo: 1, flag: 1, flagPath: 1, decorBgImage: 1 };
+  const IMG_EXT = /\.(png|jpe?g|webp|gif|svg)$/i;
+  const ABS = /^(?:[A-Za-z]:[\\/]|\\\\|\/(?:Users|home|mnt|Volumes)\/)/;
+  const FOLDERS = ['faces', 'teams', 'sponsors', 'flags', 'engines', 'images', 'tracks', 'categories', 'journalists', 'staff'];
+  function suggestPath(v) {
+    const parts = v.split(/[\\/]+/).filter(Boolean);
+    const file = parts[parts.length - 1];
+    for (let i = parts.length - 2; i >= 0; i--) {
+      if (FOLDERS.includes(parts[i].toLowerCase())) return './' + parts.slice(i).join('/');
+      if (/^(resources|public)$/i.test(parts[i])) break;
+    }
+    return null;
+  }
+  function checkPaths(doc, push) {
+    (function walk(v, segs, label, parent, key) {
+      if (Array.isArray(v)) { for (let i = 0; i < v.length; i++) walk(v[i], segs.concat(i), label, v, i); return; }
+      if (v && typeof v === 'object') {
+        const lb = typeof v.name === 'string' && v.name ? v.name : label;
+        for (const k of Object.keys(v)) if (k !== '__dup' && k !== 'workshopCoverImage') walk(v[k], segs.concat(k), lb, v, k);
+        return;
+      }
+      if (typeof v !== 'string' || v.length > 1000 || v.startsWith('data:')) return;
+      if (!(IMG_KEYS[key] || IMG_EXT.test(v))) return;
+      if (!ABS.test(v)) return;
+      const sug = suggestPath(v);
+      push({ sev: 'warning', code: 'PATH-001', tpl: sug ? 'absolutePath' : 'absolutePathNoSug', segs, line: lineOf(parent, key), entity: label || '', field: String(key), value: short(v),
+        apply: !!sug, vars: { field: String(key), value: v, suggestion: sug || '' } });
+    })(doc, [], '', null, null);
   }
 
   // ------------------------------------------------------------------ tree helpers (lazy children)

@@ -95,7 +95,9 @@
   "duplicateKey": "{field} staat twee keer in hetzelfde object. Alleen de laatste telt.",
   "missingRef": "{field} = {value}: er bestaat geen {target} met dit ID of deze naam.",
   "duplicateId": "ID {value} wordt door meer dan één {target} gebruikt. Ook gebruikt door: {other}.",
-  "duplicateName": "{target} '{value}' (id {id}) komt meer dan eens voor met een ander ID. Ook: {other}."
+  "duplicateName": "{target} '{value}' (id {id}) komt meer dan eens voor met een ander ID. Ook: {other}.",
+  "absolutePath": "{field} verwijst naar een bestand op één specifieke pc ({value}). Andere spelers zien deze afbeelding waarschijnlijk niet. Gebruik {suggestion}.",
+  "absolutePathNoSug": "{field} verwijst naar een bestand op één specifieke pc ({value}). Andere spelers zien deze afbeelding waarschijnlijk niet. Gebruik een pad binnen de resources-map van de game, zoals ./teams/naam.png."
  },
  "syntax": {
   "JSON-001": "Komma na het laatste item.",
@@ -124,7 +126,8 @@
   "VAR-001": "Alternatieve schrijfwijze",
   "REF-001": "Ontbrekende verwijzing",
   "DUP-002": "Dubbel ID",
-  "DUP-003": "Dubbele naam"
+  "DUP-003": "Dubbele naam",
+  "PATH-001": "Pad op één pc"
  },
  "targets": {
   "driver": "coureur",
