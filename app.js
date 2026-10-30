@@ -1,7 +1,7 @@
 /* DM Validator UI */
 (function () {
   'use strict';
-  const TOOL_VERSION = '0.1.2';
+  const TOOL_VERSION = '0.2.0';
   const LANGS = ['en', 'nl', 'fr', 'de'];
   const SEVS = ['error', 'warning', 'info'];
   const RANK = { error: 0, warning: 1, info: 2 };
@@ -33,7 +33,9 @@
   const msgText = (m, T) => {
     const tab = T || st.T;
     if (m.syntax) return fill((tab.syntax || {})[m.code] || st.EN.syntax[m.code], {}) + (m.detail ? ' (' + m.detail + ')' : '');
-    return fill((tab.msg || {})[m.tpl] || st.EN.msg[m.tpl], m.vars);
+    const vars = m.vars && m.vars.targetKey ? Object.assign({}, m.vars, { target: ((tab.targets || {})[m.vars.targetKey]) || st.EN.targets[m.vars.targetKey] }) : m.vars;
+    const out = fill((tab.msg || {})[m.tpl] || st.EN.msg[m.tpl], vars);
+    return out.charAt(0).toUpperCase() + out.slice(1);
   };
   const ruleName = (code, T) => { const tab = (T || st.T).rules; return tab[code] || tab[code.split('-')[0]] || code; };
   const loc = (m) => m.line === undefined ? '' : (st.result && st.result.minified ? m.line + ':' + m.col : String(m.line));
@@ -254,6 +256,9 @@
         case 'missing': return { ask: true, text: v.field + ' is missing, so the game uses its default. Keep the default, or add the field? If add: with which value?' };
         case 'wrongType': return { ask: false, text: v.field + ' is text ("' + v.value + '"); the game expects a number. Change "' + v.value + '" to ' + v.value + '.' };
         case 'duplicateKey': return { ask: true, text: v.field + ' appears twice in the same object. Which of the two values should stay?' };
+        case 'missingRef': { const tg = EN.targets[v.targetKey]; return { ask: true, text: v.field + ' = ' + v.value + ': no ' + tg + ' with this ID or name exists in this file. Which existing ' + tg + ' should it point to (list the existing ones from the file as options), or should this reference be removed?' }; }
+        case 'duplicateName': { const tg = EN.targets[v.targetKey]; return { ask: true, text: 'The ' + tg + ' "' + v.value + '" (id ' + v.id + ') appears more than once with a different ID (also: ' + v.other + '). Is this the same person? If yes: which entry should stay, and should all references (teamId, pilots, reserves, relations, driverCarAssignment) be moved to that ID? If no: keep both.' }; }
+        case 'duplicateId': { const tg = EN.targets[v.targetKey]; return { ask: true, text: 'ID ' + v.value + ' is used by more than one ' + tg + ' (also: ' + v.other + '). Which entry should get a new ID? Suggest the lowest unused ' + tg + ' ID, and check every place that refers to this ID.' }; }
         default: return { ask: true, text: msgText(m, EN) };
       }
     };

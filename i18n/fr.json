@@ -92,7 +92,10 @@
   "notAMod": "Ce n’est pas un fichier de mod : le niveau supérieur doit être un objet.",
   "outOfRange": "{field} = {value} est hors de la plage {range}.",
   "missing": "{field} est manquant. Le jeu utilise sa valeur par défaut.",
-  "duplicateKey": "{field} apparaît deux fois dans le même objet. Seule la dernière compte."
+  "duplicateKey": "{field} apparaît deux fois dans le même objet. Seule la dernière compte.",
+  "missingRef": "{field} = {value} : aucun(e) {target} avec cet ID ou ce nom.",
+  "duplicateId": "L’ID {value} est utilisé par plus d’un(e) {target}. Aussi utilisé par : {other}.",
+  "duplicateName": "{target} '{value}' (id {id}) apparaît plus d’une fois avec un autre ID. Aussi : {other}."
  },
  "syntax": {
   "JSON-001": "Virgule après le dernier élément.",
@@ -118,6 +121,19 @@
   "MISS-001": "Champ manquant",
   "DUP-001": "Champ en double",
   "JSON": "JSON invalide",
-  "VAR-001": "Orthographe alternative"
+  "VAR-001": "Orthographe alternative",
+  "REF-001": "Référence manquante",
+  "DUP-002": "ID en double",
+  "DUP-003": "Nom en double"
+ },
+ "targets": {
+  "driver": "pilote",
+  "team": "équipe",
+  "sponsor": "sponsor",
+  "namingSponsor": "sponsor titre",
+  "engine": "moteur",
+  "academy": "académie",
+  "staff": "membre du staff",
+  "car": "voiture"
  }
 }
