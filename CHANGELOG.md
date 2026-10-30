@@ -9,6 +9,7 @@
   - info: driver relations, `driverCarAssignment` drivers and the `drivers` list of a team (the vanilla data also contains these leftovers).
 - Drivers, teams, academies and staff share one ID space across categories; sponsors, naming sponsors and engines are numbered per category, as in the vanilla data.
 - The AI prompt asks which existing entry a broken reference should point to.
+- New: **duplicate drivers and staff**. A warning when the same name (ignoring case and accents) appears with a different ID, in any list or category.
 
 ### Nederlands
 - Nieuw: **verwijzingen tussen onderdelen**. De validator controleert nu of ID's naar iets bestaands wijzen:
@@ -17,6 +18,7 @@
   - info: relaties van coureurs, coureurs in `driverCarAssignment` en de lijst `drivers` van een team (ook de vanilla-data bevat deze restanten).
 - Coureurs, teams, academies en staf delen één ID-reeks over alle categorieën; sponsors, titelsponsors en motoren zijn per categorie genummerd, net als in de vanilla-data.
 - De AI-prompt vraagt naar welk bestaand onderdeel een kapotte verwijzing moet wijzen.
+- Nieuw: **dubbele coureurs en stafleden**. Een waarschuwing als dezelfde naam (ongeacht hoofdletters en accenten) met een ander ID voorkomt, in elke lijst en categorie.
 
 ## [0.1.2] — 2026-10-30
 

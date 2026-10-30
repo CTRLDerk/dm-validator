@@ -341,6 +341,21 @@
       }
     }
 
+    // 1b. the same driver or staff member entered twice (same name, different IDs)
+    for (const [kind, arrs] of [['driver', DRIVERS], ['staff', ['staff']]]) {
+      const seen = new Map();
+      for (const { c, segs, name } of cats) for (const arr of arrs) (Array.isArray(c[arr]) ? c[arr] : []).forEach((o, i) => {
+        if (!o || typeof o !== 'object' || typeof o.name !== 'string' || !o.name.trim()) return;
+        const k = fold(o.name).replace(/\s+/g, ' ');
+        const here = { segs: segs.concat(arr, i), id: o.id, cat: name };
+        const first = seen.get(k);
+        if (!first) { seen.set(k, here); return; }
+        if (same(first.id) === same(o.id)) return;
+        push({ sev: 'warning', code: 'DUP-003', tpl: 'duplicateName', segs: here.segs.concat('name'), line: lineOf(o, 'name'), entity: o.name + (name ? ' · ' + name : ''), field: 'name', value: short(o.name),
+          vars: { value: o.name, id: o.id, targetKey: kind, other: pathStr(first.segs) + ' (id ' + first.id + (first.cat ? ', ' + first.cat : '') + ')' } });
+      });
+    }
+
     // 2. check references
     let cur = null; // category being checked
     function ref(sev, obj, key, kind, segs, entity, fieldLabel, val) {

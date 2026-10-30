@@ -94,7 +94,8 @@
   "missing": "{field} fehlt. Das Spiel nutzt den Standardwert.",
   "duplicateKey": "{field} kommt im selben Objekt zweimal vor. Nur der letzte zählt.",
   "missingRef": "{field} = {value}: Kein(e) {target} mit dieser ID oder diesem Namen vorhanden.",
-  "duplicateId": "ID {value} wird von mehr als einem/einer {target} verwendet. Auch verwendet von: {other}."
+  "duplicateId": "ID {value} wird von mehr als einem/einer {target} verwendet. Auch verwendet von: {other}.",
+  "duplicateName": "{target} '{value}' (ID {id}) kommt mehrfach mit einer anderen ID vor. Auch: {other}."
  },
  "syntax": {
   "JSON-001": "Komma nach dem letzten Element.",
@@ -122,7 +123,8 @@
   "JSON": "Ungültiges JSON",
   "VAR-001": "Alternative Schreibweise",
   "REF-001": "Fehlender Verweis",
-  "DUP-002": "Doppelte ID"
+  "DUP-002": "Doppelte ID",
+  "DUP-003": "Doppelter Name"
  },
  "targets": {
   "driver": "Fahrer",

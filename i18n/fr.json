@@ -94,7 +94,8 @@
   "missing": "{field} est manquant. Le jeu utilise sa valeur par défaut.",
   "duplicateKey": "{field} apparaît deux fois dans le même objet. Seule la dernière compte.",
   "missingRef": "{field} = {value} : aucun(e) {target} avec cet ID ou ce nom.",
-  "duplicateId": "L’ID {value} est utilisé par plus d’un(e) {target}. Aussi utilisé par : {other}."
+  "duplicateId": "L’ID {value} est utilisé par plus d’un(e) {target}. Aussi utilisé par : {other}.",
+  "duplicateName": "{target} '{value}' (id {id}) apparaît plus d’une fois avec un autre ID. Aussi : {other}."
  },
  "syntax": {
   "JSON-001": "Virgule après le dernier élément.",
@@ -122,7 +123,8 @@
   "JSON": "JSON invalide",
   "VAR-001": "Orthographe alternative",
   "REF-001": "Référence manquante",
-  "DUP-002": "ID en double"
+  "DUP-002": "ID en double",
+  "DUP-003": "Nom en double"
  },
  "targets": {
   "driver": "pilote",

@@ -94,7 +94,8 @@
   "missing": "{field} ontbreekt. De game gebruikt de standaardwaarde.",
   "duplicateKey": "{field} staat twee keer in hetzelfde object. Alleen de laatste telt.",
   "missingRef": "{field} = {value}: er bestaat geen {target} met dit ID of deze naam.",
-  "duplicateId": "ID {value} wordt door meer dan één {target} gebruikt. Ook gebruikt door: {other}."
+  "duplicateId": "ID {value} wordt door meer dan één {target} gebruikt. Ook gebruikt door: {other}.",
+  "duplicateName": "{target} '{value}' (id {id}) komt meer dan eens voor met een ander ID. Ook: {other}."
  },
  "syntax": {
   "JSON-001": "Komma na het laatste item.",
@@ -122,7 +123,8 @@
   "JSON": "Ongeldige JSON",
   "VAR-001": "Alternatieve schrijfwijze",
   "REF-001": "Ontbrekende verwijzing",
-  "DUP-002": "Dubbel ID"
+  "DUP-002": "Dubbel ID",
+  "DUP-003": "Dubbele naam"
  },
  "targets": {
   "driver": "coureur",
