@@ -3,7 +3,7 @@
 A free, browser-based toolkit for Delta Manager modders, hosted on GitHub Pages.
 No installation, no account, and no uploads: every file is processed locally in the modder's own browser.
 
-**Target game version:** Delta Manager 0.7
+**Target game version:** Delta Manager 0.0.8 (schema file name `dm-0.7.json` kept)
 **Status:** Phase 1 released (v0.1.0)
 
 ---

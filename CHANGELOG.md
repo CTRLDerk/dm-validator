@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.4] — 2026-11-14
+
+### English
+- Schema 0.2.0 for **Delta Manager 0.0.8**. Three fields that the mod editor writes since 0.0.8 are now known and no longer reported as unknown (`FIELD-001`): `gameplay.raceRules.startType`, `disable3DView` and `aiLiveryRefresh`. Source: editor-saved mods.
+- Reports now show "Delta Manager 0.0.8". The schema file keeps its name (`schema/dm-0.7.json`).
+- The version shown in the app was still 0.3.2; it is now 0.3.4.
+
+### Nederlands
+- Schema 0.2.0 voor **Delta Manager 0.0.8**. Drie velden die de mod-editor sinds 0.0.8 schrijft, zijn nu bekend en worden niet meer als onbekend gemeld (`FIELD-001`): `gameplay.raceRules.startType`, `disable3DView` en `aiLiveryRefresh`. Bron: door de editor opgeslagen mods.
+- Rapporten tonen nu "Delta Manager 0.0.8". Het schemabestand houdt zijn naam (`schema/dm-0.7.json`).
+- De versie in de app stond nog op 0.3.2; die is nu 0.3.4.
+
 ## [0.3.3] — 2026-11-12
 
 ### English
