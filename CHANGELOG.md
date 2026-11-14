@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.3] — 2026-11-12
+
+### English
+- `gameplay.raceRules.instantQualiAttempts` and `gameplay.raceRules.instantQualiLevelSpread` are now known fields. The game editor writes them itself (seen in an editor save of 2026-11-12), so they no longer give an "unknown field" warning.
+
+### Nederlands
+- `gameplay.raceRules.instantQualiAttempts` en `gameplay.raceRules.instantQualiLevelSpread` zijn nu bekende velden. De editor van de game schrijft ze zelf (gezien in een editorsave van 2026-11-12), dus ze geven geen waarschuwing "onbekend veld" meer.
+
 ## [0.3.2] — 2026-10-30
 
 ### English
