@@ -50,3 +50,15 @@ test('each known generalData path has its parent listed', () => {
 test('sources referenced by name exist', () => {
   assert.ok(['guide', 'vanilla'].every(k => k in S.sources));
 });
+
+test('TOOL_VERSION in app.js matches the newest CHANGELOG entry', () => {
+  const fs = require('node:fs');
+  const path = require('node:path');
+  const root = path.join(__dirname, '..');
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  const log = fs.readFileSync(path.join(root, 'CHANGELOG.md'), 'utf8');
+  const tool = (app.match(/const TOOL_VERSION = '([^']+)'/) || [])[1];
+  const top = (log.match(/^## \[([^\]]+)\]/m) || [])[1];
+  assert.ok(tool, 'TOOL_VERSION not found in app.js');
+  assert.equal(tool, top);
+});

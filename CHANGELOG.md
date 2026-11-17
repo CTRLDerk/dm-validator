@@ -3,12 +3,14 @@
 ## [0.3.4] — 2026-11-17
 
 ### English
-- `generalData.driverGeneration.coefHomeMin`, `coefHomeMax`, `coefOtherMin`, `coefOtherMax`, `generalData.disable3DView` and `generalData.aiLiveryRefresh` are now known fields. The game editor writes them itself (seen in an editor save of 2026-11-05), so they no longer give an "unknown field" warning.
+- Schema 0.1.2: `generalData.driverGeneration.coefHomeMin`, `coefHomeMax`, `coefOtherMin`, `coefOtherMax`, `generalData.disable3DView` and `generalData.aiLiveryRefresh` are now known fields. The game editor writes them itself (seen in an editor save of 2026-11-05), so they no longer give an "unknown field" warning.
 - Automatic tests (`npm test`, no dependencies) for every rule code, the language files and the schema. They run on GitHub for every push and pull request. Fields the editor writes itself are listed in `tests/fixtures/editor-fields.json`; an editor save must never give FIELD-001.
+- The page header showed v0.3.2 in version 0.3.3; it now shows the right version.
 
 ### Nederlands
-- `generalData.driverGeneration.coefHomeMin`, `coefHomeMax`, `coefOtherMin`, `coefOtherMax`, `generalData.disable3DView` en `generalData.aiLiveryRefresh` zijn nu bekende velden. De editor van de game schrijft ze zelf (gezien in een editorsave van 2026-11-05), dus ze geven geen waarschuwing "onbekend veld" meer.
+- Schema 0.1.2: `generalData.driverGeneration.coefHomeMin`, `coefHomeMax`, `coefOtherMin`, `coefOtherMax`, `generalData.disable3DView` en `generalData.aiLiveryRefresh` zijn nu bekende velden. De editor van de game schrijft ze zelf (gezien in een editorsave van 2026-11-05), dus ze geven geen waarschuwing "onbekend veld" meer.
 - Automatische tests (`npm test`, geen afhankelijkheden) voor elke regelcode, de taalbestanden en het schema. Ze draaien op GitHub bij elke push en pull request. Velden die de editor zelf schrijft staan in `tests/fixtures/editor-fields.json`; een editorsave mag nooit FIELD-001 geven.
+- De kop van de pagina toonde v0.3.2 in versie 0.3.3; nu staat er de juiste versie.
 
 ## [0.3.3] — 2026-11-12
 
