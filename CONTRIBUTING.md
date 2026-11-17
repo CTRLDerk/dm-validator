@@ -24,6 +24,8 @@ Interface texts are in `i18n/en.json`, `nl.json`, `fr.json` and `de.json`. Corre
 
 - Keep each pull request small and about one thing.
 - The schema (`schema/dm-0.7.json`) only contains information from the official modding guide, the vanilla databases, editor-saved mods or in-game tests. Do not add game logic taken from the game's code.
+- Run the tests with `npm test` (or `node --test tests/*.test.js`; Node 18 or newer, no install needed). They also run on GitHub for every pull request.
+- A new rule code needs a test in `tests/rules.test.js` and a text in all four language files. A field the editor writes itself goes in `tests/fixtures/editor-fields.json` together with the schema change.
 - Run the tool locally before opening a pull request. Because it uses a Web Worker, open it through a local web server (for example `python -m http.server`) rather than by double-clicking `index.html`.
 - Describe what you tested.
 

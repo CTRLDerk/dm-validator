@@ -12,6 +12,7 @@
 
 ## Tested
 
+- [ ] `npm test` passes (new rule or field: test added)
 - [ ] Opened the tool through a local web server and loaded at least one mod file
 - [ ] Checked the result in more than one language if texts changed
 - [ ] No private files (mod slots, personal data) are included

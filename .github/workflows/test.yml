@@ -1,0 +1,20 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Syntax check of the page scripts
+        run: node --check app.js && node --check worker.js && node --check engine.js
+      - name: Schema and language files are valid JSON
+        run: for f in schema/*.json i18n/*.json tests/fixtures/*.json; do node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))" || { echo "invalid JSON: $f"; exit 1; }; done
+      - name: Tests
+        run: node --test tests/*.test.js
