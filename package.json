@@ -1,0 +1,15 @@
+{
+  "name": "dm-validator",
+  "private": true,
+  "description": "JSON debugger for Delta Manager mods. No dependencies: package.json only holds the test scripts.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test \"tests/*.test.js\"",
+    "test:browser": "node --test \"tests/browser/*.test.js\"",
+    "snapshot": "UPDATE_SNAPSHOTS=1 node --test tests/snapshot.test.js",
+    "serve": "python3 -m http.server 8000"
+  }
+}

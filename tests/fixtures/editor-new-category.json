@@ -1,0 +1,870 @@
+{
+ "$note": "Wat de Delta Manager-editor (0.7) schrijft bij het opslaan van een mod met lege categorieën (F1 Ladder 2026-skelet, opgeslagen 2026-11-05). Velden die al in het skelet stonden zijn weggelaten in tools/build-defaults.py (--skeleton). Bron voor schema/defaults-0.7.json (how = editor-save).",
+ "savedAt": "2026-11-05T13:41:40.682Z",
+ "generalData": {
+  "startYear": 2026,
+  "startWeek": 1,
+  "gameplay": {
+   "raceRules": {
+    "minRecruitAge": 18,
+    "maxRecruitAge": 45,
+    "minTransferAge": 18,
+    "maxTransferAge": 45,
+    "maxSeasonsInCategory": 0,
+    "championMustLeave": false,
+    "barCategories": [],
+    "barCategoriesMinSeasons": 1
+   },
+   "_reliabilityMultiplierV2": true
+  },
+  "categoryPrestige": 100,
+  "categoryName": "Formula 1",
+  "categoryAudience": 100,
+  "driverGeneration": {
+   "driversPerYear": 0,
+   "ageMin": 18,
+   "ageMax": 20,
+   "levelMin": 5,
+   "levelMax": 7,
+   "potentialMin": 7,
+   "potentialMax": 9.5,
+   "coefHomeMin": 1,
+   "coefHomeMax": 1,
+   "coefOtherMin": 0.5,
+   "coefOtherMax": 0.5,
+   "retirementAgeMin": 38,
+   "retirementAgeMax": 44,
+   "attritionEnabled": true
+  },
+  "eras": [],
+  "driverValueScale": 100,
+  "concepts": {
+   "current": [
+    {
+     "id": "concept_current_1",
+     "name": "Concept 1",
+     "displayName": "Zero Sidepods",
+     "regulationType": "current",
+     "limits": {
+      "speed": 116,
+      "grip": 80,
+      "aero": 108,
+      "racePace": 88,
+      "tyreManagement": 72,
+      "dirtyAir": 96,
+      "overtaking": 84,
+      "reliability": 100
+     }
+    },
+    {
+     "id": "concept_current_2",
+     "name": "Concept 2",
+     "displayName": "High Rake",
+     "regulationType": "current",
+     "limits": {
+      "speed": 84,
+      "grip": 112,
+      "aero": 96,
+      "racePace": 108,
+      "tyreManagement": 104,
+      "dirtyAir": 76,
+      "overtaking": 92,
+      "reliability": 88
+     }
+    },
+    {
+     "id": "concept_current_3",
+     "name": "Concept 3",
+     "displayName": "Balanced Aero",
+     "regulationType": "current",
+     "limits": {
+      "speed": 100,
+      "grip": 96,
+      "aero": 100,
+      "racePace": 96,
+      "tyreManagement": 92,
+      "dirtyAir": 100,
+      "overtaking": 96,
+      "reliability": 104
+     }
+    }
+   ],
+   "future": [
+    {
+     "id": "concept_future_1",
+     "name": "Concept 1",
+     "displayName": "Aggressive Aero",
+     "regulationType": "future",
+     "limits": {
+      "speed": 112,
+      "grip": 76,
+      "aero": 116,
+      "racePace": 92,
+      "tyreManagement": 68,
+      "dirtyAir": 104,
+      "overtaking": 80,
+      "reliability": 96
+     }
+    },
+    {
+     "id": "concept_future_2",
+     "name": "Concept 2",
+     "displayName": "Mechanical Grip",
+     "regulationType": "future",
+     "limits": {
+      "speed": 80,
+      "grip": 116,
+      "aero": 88,
+      "racePace": 112,
+      "tyreManagement": 108,
+      "dirtyAir": 84,
+      "overtaking": 96,
+      "reliability": 92
+     }
+    },
+    {
+     "id": "concept_future_3",
+     "name": "Concept 3",
+     "displayName": "Efficiency Focus",
+     "regulationType": "future",
+     "limits": {
+      "speed": 96,
+      "grip": 92,
+      "aero": 96,
+      "racePace": 100,
+      "tyreManagement": 112,
+      "dirtyAir": 88,
+      "overtaking": 116,
+      "reliability": 108
+     }
+    },
+    {
+     "id": "concept_future_4",
+     "name": "Concept 4",
+     "displayName": "All-Rounder",
+     "regulationType": "future",
+     "limits": {
+      "speed": 100,
+      "grip": 100,
+      "aero": 100,
+      "racePace": 100,
+      "tyreManagement": 96,
+      "dirtyAir": 96,
+      "overtaking": 96,
+      "reliability": 100
+     }
+    }
+   ]
+  },
+  "carUnderstanding": {
+   "research": {
+    "baseImprovement": 5,
+    "baseWeeks": 6,
+    "baseSuccessChance": 0.7,
+    "baseCost": 0.5,
+    "windTunnelAllocation": {
+     "baseHoursPerWeek": 2,
+     "hoursPerLevel": {
+      "minimal": 2,
+      "standard": 4,
+      "intensive": 6,
+      "maximum": 10
+     }
+    },
+    "gainLevels": {
+     "minimal": {
+      "hoursMultiplier": 1,
+      "improvementMultiplier": 1
+     },
+     "standard": {
+      "hoursMultiplier": 2,
+      "improvementMultiplier": 1.5
+     },
+     "intensive": {
+      "hoursMultiplier": 3,
+      "improvementMultiplier": 2
+     },
+     "maximum": {
+      "hoursMultiplier": 5,
+      "improvementMultiplier": 3
+     }
+    },
+    "gainOptions": {
+     "minimal": {
+      "improvementMultiplier": 1
+     },
+     "standard": {
+      "improvementMultiplier": 1.5
+     },
+     "intensive": {
+      "improvementMultiplier": 2
+     },
+     "maximum": {
+      "improvementMultiplier": 3
+     }
+    },
+    "successBoosts": {
+     "none": {
+      "cost": 0,
+      "bonus": 0
+     },
+     "boost10": {
+      "cost": 1,
+      "bonus": 0.1
+     },
+     "boost20": {
+      "cost": 2.5,
+      "bonus": 0.2
+     },
+     "boost30": {
+      "cost": 5,
+      "bonus": 0.3
+     }
+    },
+    "speedOptions": {
+     "normal": {
+      "weeksReduction": 0,
+      "successPenalty": 0
+     },
+     "fast": {
+      "weeksReduction": 2,
+      "successPenalty": 0.15
+     },
+     "rush": {
+      "weeksReduction": 4,
+      "successPenalty": 0.35
+     },
+     "instant": {
+      "weeksReduction": 999,
+      "successPenalty": 0.5
+     }
+    }
+   }
+  },
+  "development": {
+   "performanceCosts": {
+    "speed": {
+     "cost": 1.5,
+     "baseWeeks": 10
+    },
+    "grip": {
+     "cost": 1.5,
+     "baseWeeks": 10
+    },
+    "aero": {
+     "cost": 1.5,
+     "baseWeeks": 10
+    },
+    "racePace": {
+     "cost": 1.5,
+     "baseWeeks": 10
+    },
+    "tyreManagement": {
+     "cost": 0.5,
+     "baseWeeks": 2
+    },
+    "dirtyAir": {
+     "cost": 0.5,
+     "baseWeeks": 2
+    },
+    "overtaking": {
+     "cost": 0.5,
+     "baseWeeks": 2
+    },
+    "reliability": {
+     "cost": 0.5,
+     "baseWeeks": 2
+    },
+    "relBrakes": {
+     "cost": 0.08,
+     "baseWeeks": 2
+    },
+    "relGearbox": {
+     "cost": 0.08,
+     "baseWeeks": 2
+    },
+    "relSuspension": {
+     "cost": 0.08,
+     "baseWeeks": 2
+    },
+    "relHydraulics": {
+     "cost": 0.08,
+     "baseWeeks": 2
+    },
+    "relElectronics": {
+     "cost": 0.08,
+     "baseWeeks": 2
+    },
+    "relCooling": {
+     "cost": 0.08,
+     "baseWeeks": 2
+    },
+    "ersDeploy": {
+     "cost": 0.5,
+     "baseWeeks": 2
+    },
+    "ersRecovery": {
+     "cost": 0.5,
+     "baseWeeks": 2
+    },
+    "drsPower": {
+     "cost": 0.5,
+     "baseWeeks": 2
+    },
+    "attackPower": {
+     "cost": 0.5,
+     "baseWeeks": 2
+    },
+    "relErs": {
+     "cost": 0.2,
+     "baseWeeks": 2
+    },
+    "relDrs": {
+     "cost": 0.2,
+     "baseWeeks": 2
+    },
+    "relAttack": {
+     "cost": 0.2,
+     "baseWeeks": 2
+    },
+    "aidsPower": {
+     "cost": 0.5,
+     "baseWeeks": 2
+    },
+    "relAids": {
+     "cost": 0.2,
+     "baseWeeks": 2
+    }
+   },
+   "riskLevels": {
+    "safe": {
+     "failChance": 0.25,
+     "improvement": 0.5,
+     "futureImprovement": 1,
+     "illegalityChance": 0,
+     "illegalityMin": 0,
+     "illegalityMax": 0
+    },
+    "moderate": {
+     "failChance": 0.65,
+     "improvement": 1,
+     "futureImprovement": 2,
+     "illegalityChance": 0.5,
+     "illegalityMin": 1,
+     "illegalityMax": 1
+    },
+    "risky": {
+     "failChance": 0.85,
+     "improvement": 2,
+     "futureImprovement": 4,
+     "illegalityChance": 0.5,
+     "illegalityMin": 1,
+     "illegalityMax": 2
+    },
+    "maximum": {
+     "failChance": 0.95,
+     "improvement": 3,
+     "futureImprovement": 6,
+     "illegalityChance": 0.5,
+     "illegalityMin": 1,
+     "illegalityMax": 4
+    }
+   },
+   "successBoosts": {
+    "none": {
+     "cost": 0,
+     "bonus": 0
+    },
+    "boost10": {
+     "cost": 2,
+     "bonus": 0.1
+    },
+    "boost20": {
+     "cost": 5,
+     "bonus": 0.2
+    },
+    "boost30": {
+     "cost": 10,
+     "bonus": 0.3
+    }
+   }
+  },
+  "regulations": {
+   "engineResetCap": 20,
+   "majorEngineImpactChance": 100,
+   "forceFirstMajorEngineReset": false,
+   "crashTestResetMajor": 50,
+   "crashTestResetMinor": 80,
+   "stewards": {
+    "pointsProbability": 15,
+    "performanceProbability": 45,
+    "moneyProbability": 40,
+    "pointsMin": 5,
+    "pointsMax": 50,
+    "performanceMin": 0.5,
+    "performanceMax": 4,
+    "moneyMin": 5,
+    "moneyMax": 40,
+    "pointsMode": "fixed",
+    "pointsPercentMin": 20,
+    "pointsPercentMax": 80,
+    "moneyMode": "fixed",
+    "moneyPercentMin": 20,
+    "moneyPercentMax": 80,
+    "reportsPerSeason": 2,
+    "illegalityDecayMin": 1,
+    "illegalityDecayMax": 4,
+    "illegalityDecayWeeks": 8
+   },
+   "mistakeProbabilities": {
+    "lockupBase": 0.003,
+    "spinBase": 0.00018,
+    "spinComposureFactor": 7.5e-05,
+    "minorErrorBase": 0.001,
+    "minorErrorComposureFactor": 0.00025,
+    "rainLockupExponent": 1.5,
+    "rainSpinExponent": 1.5,
+    "rainMinorErrorExponent": 1.4
+   },
+   "crashTestMail": {
+    "options": {
+     "risky": {
+      "successChance": 0.5,
+      "cost": 0,
+      "crashTestGain": {
+       "min": 1,
+       "max": 15
+      },
+      "weightGain": {
+       "min": 0,
+       "max": 0
+      }
+     },
+     "moderate": {
+      "successChance": 1,
+      "cost": 0,
+      "crashTestGain": {
+       "min": 10,
+       "max": 25
+      },
+      "weightGain": {
+       "min": 5,
+       "max": 20
+      }
+     },
+     "emergency": {
+      "successChance": 1,
+      "cost": 0,
+      "crashTestGain": {
+       "min": 35,
+       "max": 65
+      },
+      "weightGain": {
+       "min": 20,
+       "max": 60
+      }
+     },
+     "validate": {
+      "successChance": 1,
+      "cost": 1,
+      "crashTestGain": {
+       "min": 0,
+       "max": 0
+      },
+      "weightGain": {
+       "min": 0,
+       "max": 0
+      }
+     }
+    },
+    "aiSelection": {
+     "riskyChance": 20,
+     "moderateChance": 70,
+     "emergencyChance": 10,
+     "urgencyBonusPerWeek": 5,
+     "lowCrashTestThreshold": 50,
+     "lowCrashTestEmergencyBonus": 15,
+     "lowCrashTestModeratePenalty": 10,
+     "lowCrashTestRiskyPenalty": 5,
+     "highCrashTestThreshold": 80,
+     "highCrashTestRiskyBonus": 15,
+     "highCrashTestEmergencyPenalty": 10
+    }
+   },
+   "offseasonDevelopment": {
+    "options": {
+     "freeze": {
+      "cost": 0,
+      "costNonMajor": 0,
+      "illegalityChance": 0,
+      "illegalityChanceNonMajor": 0,
+      "illegalityRange": {
+       "min": 0,
+       "max": 0
+      },
+      "illegalityRangeNonMajor": {
+       "min": 0,
+       "max": 0
+      }
+     },
+     "optimize": {
+      "cost": 25,
+      "costNonMajor": 25,
+      "illegalityChance": 20,
+      "illegalityChanceNonMajor": 20,
+      "illegalityRange": {
+       "min": 5,
+       "max": 15
+      },
+      "illegalityRangeNonMajor": {
+       "min": 5,
+       "max": 15
+      }
+     },
+     "aggressive": {
+      "cost": 55,
+      "costNonMajor": 55,
+      "illegalityChance": 30,
+      "illegalityChanceNonMajor": 30,
+      "illegalityRange": {
+       "min": 10,
+       "max": 25
+      },
+      "illegalityRangeNonMajor": {
+       "min": 10,
+       "max": 25
+      }
+     },
+     "radical": {
+      "cost": 90,
+      "costNonMajor": 90,
+      "illegalityChance": 50,
+      "illegalityChanceNonMajor": 50,
+      "illegalityRange": {
+       "min": 20,
+       "max": 40
+      },
+      "illegalityRangeNonMajor": {
+       "min": 20,
+       "max": 40
+      }
+     }
+    }
+   }
+  },
+  "categoryRanges": {
+   "weight": {
+    "min": 698,
+    "max": 998
+   }
+  },
+  "carGeneration": "gen4",
+  "teamManagement": {
+   "minTeams": 8,
+   "maxTeams": 13
+  },
+  "engineManagement": {
+   "minEngines": 3,
+   "maxEngines": 6
+  },
+  "disable3DView": true,
+  "aiLiveryRefresh": false
+ },
+ "namingSponsors": [
+  {
+   "id": 1001,
+   "name": "Chronos Elite",
+   "category": "Horlogerie",
+   "prestige": 10,
+   "annualPayment": 20
+  },
+  {
+   "id": 1002,
+   "name": "Prestige Collection",
+   "category": "Luxe",
+   "prestige": 10,
+   "annualPayment": 18
+  },
+  {
+   "id": 1003,
+   "name": "Global Airways",
+   "category": "Aviation",
+   "prestige": 9,
+   "annualPayment": 17
+  },
+  {
+   "id": 1004,
+   "name": "TimeMaster",
+   "category": "Horlogerie",
+   "prestige": 9,
+   "annualPayment": 16
+  },
+  {
+   "id": 1005,
+   "name": "Precision Time",
+   "category": "Horlogerie",
+   "prestige": 9,
+   "annualPayment": 15
+  },
+  {
+   "id": 1006,
+   "name": "EnergyMax",
+   "category": "Énergie",
+   "prestige": 8,
+   "annualPayment": 14
+  },
+  {
+   "id": 1007,
+   "name": "FuelTech",
+   "category": "Énergie",
+   "prestige": 7,
+   "annualPayment": 13
+  },
+  {
+   "id": 1008,
+   "name": "PowerSource",
+   "category": "Énergie",
+   "prestige": 8,
+   "annualPayment": 15
+  },
+  {
+   "id": 1009,
+   "name": "DataSys",
+   "category": "Tech",
+   "prestige": 7,
+   "annualPayment": 12
+  },
+  {
+   "id": 1010,
+   "name": "CloudTech",
+   "category": "Tech",
+   "prestige": 7,
+   "annualPayment": 11
+  },
+  {
+   "id": 1011,
+   "name": "InfoSolutions",
+   "category": "Tech",
+   "prestige": 7,
+   "annualPayment": 10
+  },
+  {
+   "id": 1012,
+   "name": "Premium Brew",
+   "category": "Boissons",
+   "prestige": 7,
+   "annualPayment": 12
+  },
+  {
+   "id": 1013,
+   "name": "Global Finance",
+   "category": "Finance",
+   "prestige": 8,
+   "annualPayment": 13
+  },
+  {
+   "id": 1014,
+   "name": "WorldBank",
+   "category": "Finance",
+   "prestige": 8,
+   "annualPayment": 12
+  },
+  {
+   "id": 1015,
+   "name": "GameZone",
+   "category": "Gaming",
+   "prestige": 4,
+   "annualPayment": 7
+  },
+  {
+   "id": 1016,
+   "name": "CryptoLink",
+   "category": "Crypto",
+   "prestige": 5,
+   "annualPayment": 8
+  },
+  {
+   "id": 1017,
+   "name": "BitTrade",
+   "category": "Crypto",
+   "prestige": 4,
+   "annualPayment": 6
+  },
+  {
+   "id": 1018,
+   "name": "CoinExchange",
+   "category": "Crypto",
+   "prestige": 4,
+   "annualPayment": 6
+  },
+  {
+   "id": 1019,
+   "name": "PowerDrink",
+   "category": "Boissons",
+   "prestige": 6,
+   "annualPayment": 5
+  },
+  {
+   "id": 1020,
+   "name": "EnergyBoost",
+   "category": "Boissons",
+   "prestige": 6,
+   "annualPayment": 8
+  }
+ ],
+ "journalists": [
+  {
+   "id": "journalist_general_01",
+   "name": "Marc Lefèvre",
+   "journalName": "Pit Wall Daily",
+   "specialty": "general",
+   "initials": "ML",
+   "color": "#06b6d4",
+   "image": ""
+  },
+  {
+   "id": "journalist_perf_01",
+   "name": "Elena Rossi",
+   "journalName": "Tech Analyst",
+   "specialty": "performance",
+   "initials": "ER",
+   "color": "#a855f7",
+   "image": ""
+  },
+  {
+   "id": "journalist_drama_01",
+   "name": "James Whitfield",
+   "journalName": "Paddock Insider",
+   "specialty": "drama",
+   "initials": "JW",
+   "color": "#f43f5e",
+   "image": ""
+  },
+  {
+   "id": "journalist_midfield_01",
+   "name": "Sophie Garrett",
+   "journalName": "Pace Watch",
+   "specialty": "midfield",
+   "initials": "SG",
+   "color": "#f59e0b",
+   "image": ""
+  },
+  {
+   "id": "journalist_stats_01",
+   "name": "Hiroshi Tanaka",
+   "journalName": "Stats Central",
+   "specialty": "stats",
+   "initials": "HT",
+   "color": "#10b981",
+   "image": ""
+  },
+  {
+   "id": "journalist_incidents_01",
+   "name": "Lukas Berger",
+   "journalName": "Steward Daily",
+   "specialty": "incidents",
+   "initials": "LB",
+   "color": "#fb923c",
+   "image": ""
+  },
+  {
+   "id": "journalist_interviews_01",
+   "name": "Aiko Sato",
+   "journalName": "On The Mic",
+   "specialty": "interviews",
+   "initials": "AS",
+   "color": "#6366f1",
+   "image": ""
+  },
+  {
+   "id": "journalist_rivalry_01",
+   "name": "Carla Mendes",
+   "journalName": "The Feud",
+   "specialty": "rivalryQuotes",
+   "initials": "CM",
+   "color": "#ec4899",
+   "image": ""
+  },
+  {
+   "id": "journalist_stewards_01",
+   "name": "Ben Okafor",
+   "journalName": "Penalty Box",
+   "specialty": "stewards",
+   "initials": "BO",
+   "color": "#facc15",
+   "image": ""
+  },
+  {
+   "id": "journalist_preseason_01",
+   "name": "Tomáš Novák",
+   "journalName": "Pre-Season Tip",
+   "specialty": "preSeason",
+   "initials": "TN",
+   "color": "#14b8a6",
+   "image": ""
+  },
+  {
+   "id": "journalist_prerace_01",
+   "name": "Sandra Holm",
+   "journalName": "Race Forecast",
+   "specialty": "preRace",
+   "initials": "SH",
+   "color": "#8b5cf6",
+   "image": ""
+  },
+  {
+   "id": "journalist_tabloid_01",
+   "name": "Vinnie Crawford",
+   "journalName": "The Daily Roar",
+   "specialty": "tabloid",
+   "initials": "VC",
+   "color": "#dc2626",
+   "image": ""
+  },
+  {
+   "id": "journalist_critic_01",
+   "name": "Margot Reinhardt",
+   "journalName": "No Filter",
+   "specialty": "critic",
+   "initials": "MR",
+   "color": "#475569",
+   "image": ""
+  },
+  {
+   "id": "journalist_gossip_01",
+   "name": "Estelle Vasseur",
+   "journalName": "Whisper Lane",
+   "specialty": "gossip",
+   "initials": "EV",
+   "color": "#d946ef",
+   "image": ""
+  },
+  {
+   "id": "journalist_wildcard_01",
+   "name": "Nadia Karoui",
+   "journalName": "The Full Picture",
+   "specialty": "wildcard",
+   "initials": "NK",
+   "color": "#0ea5e9",
+   "image": ""
+  },
+  {
+   "id": "journalist_development_01",
+   "name": "Petra Voss",
+   "journalName": "Tech Paddock",
+   "specialty": "development",
+   "initials": "PV",
+   "color": "#22d3ee",
+   "image": ""
+  },
+  {
+   "id": "journalist_enthusiast_01",
+   "name": "Théo Marchand",
+   "journalName": "La Passion du Sport",
+   "specialty": "enthusiast",
+   "initials": "TM",
+   "color": "#fb923c",
+   "image": ""
+  }
+ ]
+}

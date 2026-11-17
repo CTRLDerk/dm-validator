@@ -24,8 +24,19 @@ Interface texts are in `i18n/en.json`, `nl.json`, `fr.json` and `de.json`. Corre
 
 - Keep each pull request small and about one thing.
 - The schema (`schema/dm-0.7.json`) only contains information from the official modding guide, the vanilla databases, editor-saved mods or in-game tests. Do not add game logic taken from the game's code.
-- Run the tool locally before opening a pull request. Because it uses a Web Worker, open it through a local web server (for example `python -m http.server`) rather than by double-clicking `index.html`.
+- Run `npm test` before opening a pull request (Node 22 or newer, no installs needed). GitHub runs the same tests and a browser smoke test on every push and pull request.
+- Run the tool locally as well. Because it uses a Web Worker, open it through a local web server (`npm run serve`, or `python -m http.server`) rather than by double-clicking `index.html`.
 - Describe what you tested.
+
+## Tests
+
+| Command | What it checks |
+|---|---|
+| `npm test` | JSON syntax messages with line and column, one case per rule code, the four language files (same keys and `{placeholders}`, a text for every code), the schema (types, ranges with a source, no duplicates) and the release (`TOOL_VERSION` equals the newest CHANGELOG entry, written in English and Nederlands). |
+| `npm run test:browser` | The real page in Chromium: a clean file, a broken value, invalid JSON and all four languages, without script errors. Needs Playwright: `npm install --no-save playwright && npx playwright install chromium`. Usage counting is blocked during the test. |
+| `npm run snapshot` | Rewrites `tests/snapshots/`: the number of messages per code for each file in `tests/fixtures/`. Run it only after an intended change, and explain the diff in the pull request. |
+
+Adding a rule code? The tests fail until it has a case in `tests/rules.test.js` and a text in `i18n/*.json`.
 
 ## Questions
 

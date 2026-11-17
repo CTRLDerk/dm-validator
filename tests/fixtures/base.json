@@ -1,0 +1,44 @@
+{
+  "modName": "Test mod",
+  "description": "Kleine, schone mod voor de tests van DM Validator.",
+  "titularDrivers": [
+    {
+      "id": 1, "name": "Alex Tester", "country": "NL", "flagPath": "./flags/nl.png", "image": "./drivers/1.png", "sex": "M", "age": 25,
+      "level": 7, "potential": 8, "composure": 6, "tyreManagement": 6, "crash": 3, "dangerosité": 2, "forme": 0, "formeAnnuel": 0,
+      "attack": 6, "defence": 6, "teamId": 10, "injured": false, "injuryWeeksRemaining": 0,
+      "drivingStyles": ["aggressive"], "characteristics": ["Superstar"]
+    },
+    {
+      "id": 2, "name": "Bo Proef", "country": "BE", "flagPath": "./flags/be.png", "image": "./drivers/2.png", "sex": "F", "age": 22,
+      "level": 6, "potential": 9, "composure": 5, "tyreManagement": 7, "crash": 4, "dangerosité": 1, "forme": 0, "formeAnnuel": 1,
+      "attack": 5, "defence": 7, "teamId": 10, "injured": false, "injuryWeeksRemaining": 0,
+      "drivingStyles": ["wild"], "characteristics": []
+    }
+  ],
+  "reserveDrivers": [],
+  "freeDrivers": [],
+  "retiredDrivers": [],
+  "teams": [
+    {
+      "id": 10, "name": "Test Racing", "country": "NL", "flag": "./flags/nl.png", "teamColor": "#ff6600", "logo": "./teams/10.png",
+      "famille": "Test", "engine": "Testmotor", "engineContract": 2, "budget": "medium", "wealth": 3,
+      "sponsors": [{ "sponsorId": 100, "bonusType": "podium" }], "namingSponsor": null, "futureSponsors": [], "sponsorScore": 0,
+      "endNamingYear": null, "performance": {}, "infrastructure": {}, "drivers": [], "points": 0, "developmentSlots": [],
+      "illegality": 0, "regulationDevelopment": {}, "carWeight": 0, "pilots": [1, 2], "reserves": [], "carModelId": "default",
+      "cars": [], "driverCarAssignment": {}
+    }
+  ],
+  "potentialTeams": [],
+  "circuits": [],
+  "engines": [
+    { "id": 1, "name": "Testmotor", "logo": "./engines/1.png", "description": "Testmotor", "development": 5, "entryProbability": 0, "exitProbability": 0 }
+  ],
+  "potentialEngines": [],
+  "sponsors": [
+    { "id": 100, "name": "Testbank", "logo": "./sponsors/100.png", "category": "finance", "prestige": 3, "reputation": 50, "baseAmount": 1, "color": "#003366", "country": "NL" }
+  ],
+  "namingSponsors": [],
+  "academies": [],
+  "staff": [],
+  "journalists": []
+}

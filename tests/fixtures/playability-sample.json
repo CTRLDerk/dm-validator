@@ -1,0 +1,39 @@
+{
+  "modName": "Playability sample",
+  "titularDrivers": [
+    {"id": 1, "name": "A", "age": 24, "level": 8, "potential": 9},
+    {"id": 2, "name": "B", "age": 36, "level": 6, "potential": 6},
+    {"id": 3, "name": "C", "age": 30, "level": 7, "potential": 7.5},
+    {"id": 4, "name": "D", "age": 41, "level": 5, "potential": 5}
+  ],
+  "reserveDrivers": [],
+  "freeDrivers": [{"id": 5, "name": "E", "age": 19, "level": 4, "potential": 8}],
+  "teams": [
+    {"id": 1, "name": "Fast", "budget": "20M", "wealth": 4, "exitProbability": 0.02, "drivers": [1, 2], "performance": {"speed": 80, "grip": 80, "aero": 80, "racePace": 80}, "currentConcept": {"id": "c1", "drivingStyle": "balanced", "limits": {"speed": 81, "grip": 81, "aero": 90, "racePace": 90}}},
+    {"id": 2, "name": "Slow", "budget": "0M", "wealth": 1, "exitProbability": 0.05, "drivers": [3, 4], "performance": {"speed": 60, "grip": 62, "aero": 60, "racePace": 60}, "currentConcept": {"id": "c2", "drivingStyle": "smooth", "limits": {"speed": 90, "grip": 90, "aero": 90, "racePace": 90}}}
+  ],
+  "potentialTeams": [],
+  "engines": [{"id": 1, "name": "X", "power": 80, "reliability": 80}],
+  "generalData": {
+    "categoryName": "Sample League",
+    "startYear": 2030,
+    "driverGeneration": {"driversPerYear": 1, "formeAnnuelMin": -4, "formeAnnuelMax": 4},
+    "driverDecline": {"declineStartAge": 30},
+    "carUnderstanding": {"research": {}},
+    "gameplay": {"incidentMultiplier": 100, "constructorRewards": [10, 10], "raceRules": {}},
+    "regulations": {"firstMajorRegulationYear": 2040, "engineFreeze": true,
+      "engineCatchUp": {"power": {"enabled": true, "tiers": [{"minGapRatio": 0.05, "gapShare": 0.3}]}}},
+    "development": {"budgetCap": 50,
+      "riskLevels": {"safe": {"name": "Safe", "failChance": 0.1, "improvement": 1}, "risky": {"name": "Risky", "failChance": 0.8, "improvement": 2}},
+      "catchUp": {"points": {"enabledFor": {"player": true, "ai": true}, "tiers": [{"minGapRatio": 0.1, "bonusPct": 0.5}, {"minGapRatio": 0.05, "bonusPct": 0.2}]},
+                  "success": {"enabledFor": {"player": true, "ai": true}, "tiers": [{"minGapRatio": 0.05, "successBonusPct": 90}]}}},
+    "rulePresets": {"catchUp": [{"id": "cu1", "name": "Light"}]},
+    "eras": [
+      {"name": "One", "fromYear": 2030, "toYear": 2033, "minChangesPerYear": 1, "maxChangesPerYear": 3,
+       "rules": [{"type": "tyres", "weight": 1, "options": [{"id": "o1", "label": "Hard only", "payload": {"presetId": "missing"}}]},
+                 {"type": "incidents", "weight": 1, "options": [{"id": "o2", "label": "Chaos", "payload": {"incidentMultiplier": 200}}]}]},
+      {"name": "Two", "fromYear": 2033, "toYear": 2034, "rules": [{"type": "catchUp", "weight": 1, "options": [{"id": "o3", "label": "Light", "payload": {"presetId": "cu1"}}]}]},
+      {"name": "Three", "fromYear": 2037, "toYear": 2040, "rules": []}
+    ]
+  }
+}
