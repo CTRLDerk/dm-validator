@@ -379,9 +379,20 @@
           for (const k of Object.keys(r)) if (k !== '__dup') ref('info', r, k, kind, s.concat(rel, k), L, rel, k);
         }
       });
+      // multiclass (game 0.0.82): team.classId and team.eligibleClasses[] must name a class in this league's generalData.classes
+      const gen = segs.length ? c.general : doc.generalData;
+      const classIds = gen && Array.isArray(gen.classes) && gen.classes.length ? new Set(gen.classes.map((k) => k && k.id)) : null;
+      const classRef = (obj, key, s, L, label) => {
+        const v = obj[key];
+        if (!classIds || isNone(v) || classIds.has(v)) return;
+        push({ sev: 'warning', code: 'REF-001', tpl: 'missingRef', segs: s, line: lineOf(obj, key), entity: L, field: label, value: short(v),
+          vars: { field: label, value: v, targetKey: 'class' } });
+      };
       for (const arr of ['teams', 'potentialTeams']) (Array.isArray(c[arr]) ? c[arr] : []).forEach((t, i) => {
         if (!t || typeof t !== 'object') return;
         const s = segs.concat(arr, i), L = lbl(t), potential = arr === 'potentialTeams';
+        classRef(t, 'classId', s.concat('classId'), L, 'classId');
+        (Array.isArray(t.eligibleClasses) ? t.eligibleClasses : []).forEach((_, j) => classRef(t.eligibleClasses, j, s.concat('eligibleClasses', j), L, 'eligibleClasses[]'));
         for (const k of ['pilots', 'reserves']) (Array.isArray(t[k]) ? t[k] : []).forEach((p, j) => {
           if (p && typeof p === 'object') ref('error', p, 'id', 'driver', s.concat(k, j, 'id'), L, k + '[].id');
           else ref('error', t[k], j, 'driver', s.concat(k, j), L, k + '[]');

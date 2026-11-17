@@ -138,7 +138,8 @@
   "engine": "moteur",
   "academy": "académie",
   "staff": "membre du staff",
-  "car": "voiture"
+  "car": "voiture",
+  "class": "classe"
  },
  "imgTypes": {
   "categories": "championnats",

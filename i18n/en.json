@@ -138,7 +138,8 @@
   "engine": "engine",
   "academy": "academy",
   "staff": "staff member",
-  "car": "car"
+  "car": "car",
+  "class": "class"
  },
  "imgTypes": {
   "categories": "leagues",

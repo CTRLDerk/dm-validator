@@ -138,7 +138,8 @@
   "engine": "Motor",
   "academy": "Akademie",
   "staff": "Staffmitglied",
-  "car": "Auto"
+  "car": "Auto",
+  "class": "Klasse"
  },
  "imgTypes": {
   "categories": "Serien",
