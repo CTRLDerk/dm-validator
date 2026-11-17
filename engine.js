@@ -134,7 +134,7 @@
   // ------------------------------------------------------------------ helpers
   const fold = (s) => String(s).normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
   const typeOf = (v) => v === null ? 'null' : Array.isArray(v) ? 'array' : typeof v;
-  const isId = (k) => /^-?\d+$/.test(k);
+  const isId = (k) => /^-?\d+$/.test(k) || /^cat_\d+$/.test(k); // numeric IDs and category IDs (categoryCoefficients.cat_…)
   const short = (v) => {
     let s;
     try { s = JSON.stringify(v); } catch (e) { s = String(v); }

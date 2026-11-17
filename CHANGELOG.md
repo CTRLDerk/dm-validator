@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.3.4] — 2026-11-17
+
+### English
+- Schema 0.1.2: fields added in game versions 0.0.8 and 0.0.82 are now known, so they no longer give an "unknown field" warning: `disable3DView`, `aiLiveryRefresh`, `gameplay.raceRules.startType`, `gameplay.raceRules.launchTimeSec`, `gameplay.raceRules.widthOvertake.*`, `gameplay.playoffs.*`, `gameplay.contractUnit`, `gameplay.contractMinYears`, `teamManagement.ownerEvents.*` and `driverGeneration.attritionProtectPotential`. Sources: an editor save with game version 0.0.82 and the engine defaults.
+- Category IDs as keys (for example `categoryCoefficients.cat_1775302278923` on a driver) are treated like numeric IDs: every league in a multi-league mod is accepted, not only the one in the reference mod. In a five-league mod this removes about 600 false warnings.
+
+### Nederlands
+- Schema 0.1.2: velden uit gameversie 0.0.8 en 0.0.82 zijn nu bekend en geven geen waarschuwing "onbekend veld" meer: `disable3DView`, `aiLiveryRefresh`, `gameplay.raceRules.startType`, `gameplay.raceRules.launchTimeSec`, `gameplay.raceRules.widthOvertake.*`, `gameplay.playoffs.*`, `gameplay.contractUnit`, `gameplay.contractMinYears`, `teamManagement.ownerEvents.*` en `driverGeneration.attritionProtectPotential`. Bronnen: een editorsave met gameversie 0.0.82 en de engine-defaults.
+- Categorie-ID's als sleutel (bijvoorbeeld `categoryCoefficients.cat_1775302278923` bij een coureur) worden behandeld als numerieke ID's: elke competitie in een mod met meerdere competities wordt geaccepteerd, niet alleen die uit de referentiemod. In een mod met vijf competities scheelt dat zo'n 600 onterechte waarschuwingen.
+
 ## [0.3.3] — 2026-11-12
 
 ### English
