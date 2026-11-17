@@ -66,6 +66,8 @@ test('browser smoke test', { skip: !chromium && 'playwright is not installed' },
       await page.waitForSelector('.ok', { timeout: 10000 });
       for (const lang of ['nl', 'fr', 'de', 'en']) {
         await page.selectOption('#lang', lang);
+        const expected = JSON.parse(fs.readFileSync(path.join(ROOT, 'i18n', lang + '.json'), 'utf8')).ui.loadAnother;
+        await page.waitForFunction((txt) => document.body.textContent.includes(txt), expected, { timeout: 5000 }); // the language really loaded
         assert.doesNotMatch(await page.innerText('body'), /\b(ui|msg|rules|syntax)\.[A-Za-z]+\b/, `untranslated key visible in ${lang}`);
       }
     });

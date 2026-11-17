@@ -38,6 +38,31 @@ Interface texts are in `i18n/en.json`, `nl.json`, `fr.json` and `de.json`. Corre
 
 Adding a rule code? The tests fail until it has a case in `tests/rules.test.js` and a text in `i18n/*.json`.
 
+## Changing the schema
+
+1. Edit `schema/dm-0.7.json` (one line; edit it with a script, for example `node -e`, and write it back with `JSON.stringify(schema)`). Add only what the guide, the vanilla databases, an editor save or an in-game test shows, and name that source.
+2. Add a small file to `tests/fixtures/` if the change is about a case no fixture covers yet.
+3. `npm test`. The test *schemaVersion is raised when the schema changes* fails on purpose: a schema change is always part of a release.
+4. `npm run snapshot` if results changed, and check the diff in `tests/snapshots/`: only the messages you meant to change may move.
+5. Prepare the release (below).
+
+## Releasing
+
+```
+npm run release -- 0.3.5          # or: node tools/release.js 0.3.5 --date 2026-12-01
+```
+
+This sets `TOOL_VERSION` in `app.js`, adds a CHANGELOG entry with an English and a Nederlands section, and raises `schemaVersion` (patch) when the schema changed since `tests/schema.lock`. Then replace the TODO lines in the CHANGELOG (the tests fail while they are there), run `npm test` and open the pull request. `npm run release:check` only reports what is out of date.
+
+The site is served by GitHub Pages from the default branch, so a release is live as soon as the pull request is merged.
+
+## A new game version
+
+1. Copy `schema/dm-0.7.json` to `schema/dm-<version>.json` and update `gameVersion`; change `SCHEMA_URL` in `app.js` to the new file. The tests and the release script follow it.
+2. Check the new guide and vanilla databases field by field, as in *Changing the schema*.
+3. Save an empty mod with the new editor, add it to `tests/fixtures/`, and make sure it gives no unknown-field warnings.
+4. Release as a minor version (for example 0.4.0).
+
 ## Questions
 
 Ask in the Delta Manager Discord or open a discussion in an issue.

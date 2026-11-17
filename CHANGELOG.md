@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.4] — 2026-11-17
+
+### English
+- Schema 0.1.2: `generalData.driverGeneration.coefHomeMin`, `coefHomeMax`, `coefOtherMin`, `coefOtherMax`, `generalData.disable3DView` and `generalData.aiLiveryRefresh` are now known fields. The game editor writes them itself (seen in an editor save of 2026-11-05), so they no longer give an "unknown field" warning. The schema version now also counts the fields added in 0.3.3.
+- The page header showed v0.3.2 in version 0.3.3; it now shows the right version.
+- For contributors: automatic tests (`npm test`) and a browser smoke test run on every push and pull request. `node tools/release.js <version>` prepares a release. See CONTRIBUTING.md.
+
+### Nederlands
+- Schema 0.1.2: `generalData.driverGeneration.coefHomeMin`, `coefHomeMax`, `coefOtherMin`, `coefOtherMax`, `generalData.disable3DView` en `generalData.aiLiveryRefresh` zijn nu bekende velden. De editor van de game schrijft ze zelf (gezien in een editorsave van 2026-11-05), dus ze geven geen waarschuwing "onbekend veld" meer. De schemaversie telt nu ook de velden mee die in 0.3.3 zijn toegevoegd.
+- De kop van de pagina toonde v0.3.2 in versie 0.3.3; nu staat er de juiste versie.
+- Voor bijdragers: automatische tests (`npm test`) en een browser-smoketest draaien bij elke push en pull request. `node tools/release.js <versie>` bereidt een release voor. Zie CONTRIBUTING.md.
+
 ## [0.3.3] — 2026-11-12
 
 ### English

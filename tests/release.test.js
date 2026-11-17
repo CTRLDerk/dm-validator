@@ -30,3 +30,15 @@ test('release: every CHANGELOG entry has an English and a Dutch section', () => 
   });
   assert.deepEqual(missing, []);
 });
+
+test('release: no TODO lines left in the CHANGELOG', () => {
+  const todo = changelog.split('\n').filter((l) => /\bTODO\b/.test(l));
+  assert.deepEqual(todo, [], 'fill in the CHANGELOG entry made by tools/release.js');
+});
+
+test('release: schemaVersion is raised when the schema changes', () => {
+  const { status } = require('../tools/release.js');
+  const st = status();
+  assert.ok(!st.schemaChanged, `schema/dm-0.7.json changed since schemaVersion ${st.lockVersion}. Run: node tools/release.js <next version>`);
+  assert.equal(st.schemaVersion, st.lockVersion, 'schemaVersion differs from tests/schema.lock. Run: node tools/release.js <next version>');
+});

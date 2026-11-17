@@ -5,7 +5,9 @@ const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
 const DMV = require(path.join(ROOT, 'engine.js'));
-const SCHEMA_FILE = path.join(ROOT, 'schema', 'dm-0.7.json');
+/* The schema file is named once, in app.js (SCHEMA_URL); the tests and tools/release.js read it from there. */
+const schemaPath = () => path.join(ROOT, fs.readFileSync(path.join(ROOT, 'app.js'), 'utf8').match(/const SCHEMA_URL = new URL\('([^']+)'/)[1]);
+const SCHEMA_FILE = schemaPath();
 const S = JSON.parse(fs.readFileSync(SCHEMA_FILE, 'utf8'));
 const LANGS = ['en', 'nl', 'fr', 'de'];
 const I18N = Object.fromEntries(LANGS.map((l) => [l, JSON.parse(fs.readFileSync(path.join(ROOT, 'i18n', l + '.json'), 'utf8'))]));
@@ -50,4 +52,4 @@ function engineTemplates() {
   return [...new Set([...src.matchAll(/tpl: '([A-Za-z]+)'/g)].map((m) => m[1]))].sort();
 }
 
-module.exports = { ROOT, DMV, S, SCHEMA_FILE, LANGS, I18N, read, check, checkDoc, base, counts, engineCodes, engineTemplates };
+module.exports = { schemaPath, ROOT, DMV, S, SCHEMA_FILE, LANGS, I18N, read, check, checkDoc, base, counts, engineCodes, engineTemplates };

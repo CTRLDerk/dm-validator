@@ -59,6 +59,7 @@ worker.js           runs the check in the background
 schema/dm-0.7.json  fields, types, ranges and allowed values (Delta Manager 0.7)
 i18n/*.json         interface texts (EN, NL, FR, DE)
 tests/              automatic tests (npm test); see CONTRIBUTING.md
+tools/release.js    prepares a release (version, CHANGELOG, schema version)
 ```
 
 ## Feedback

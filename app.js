@@ -1,7 +1,7 @@
 /* DM Validator UI */
 (function () {
   'use strict';
-  const TOOL_VERSION = '0.3.3';
+  const TOOL_VERSION = '0.3.4';
   const LANGS = ['en', 'nl', 'fr', 'de'];
   const SEVS = ['error', 'warning', 'info'];
   const RANK = { error: 0, warning: 1, info: 2 };
@@ -74,7 +74,7 @@
   async function loadJSON(url) { const r = await fetch(url, { cache: 'no-cache' }); if (!r.ok) throw new Error(url + ' ' + r.status); return r.json(); }
   async function setLang(l) {
     st.lang = LANGS.includes(l) ? l : 'en'; store.set('dmv.lang', st.lang);
-    try { st.T = st.lang === 'en' ? st.EN : await loadJSON('i18n/' + st.lang + '.json'); } catch (e) { st.T = st.EN; }
+    try { st.T = st.lang === 'en' ? st.EN : await loadJSON('i18n/' + st.lang + '.json'); } catch (e) { console.warn('DM Validator: i18n/' + st.lang + '.json not loaded, using English.', e); st.T = st.EN; }
     document.documentElement.lang = st.lang; render();
   }
 
@@ -577,7 +577,7 @@
     document.documentElement.dataset.theme = st.theme;
     try {
       st.EN = await loadJSON('i18n/en.json');
-      st.S = await loadJSON('schema/dm-0.7.json');
+      st.S = await loadJSON(SCHEMA_URL);
     } catch (e) {
       $app.innerHTML = '<p style="color:#fff;padding:24px;font-weight:700">' + esc((st.EN && st.EN.ui.schemaFail) || 'The schema could not be loaded. Open the tool via its website.') + '</p>';
       return;

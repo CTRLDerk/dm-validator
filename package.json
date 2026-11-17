@@ -10,6 +10,8 @@
     "test": "node --test \"tests/*.test.js\"",
     "test:browser": "node --test \"tests/browser/*.test.js\"",
     "snapshot": "UPDATE_SNAPSHOTS=1 node --test tests/snapshot.test.js",
-    "serve": "python3 -m http.server 8000"
+    "serve": "python3 -m http.server 8000",
+    "release": "node tools/release.js",
+    "release:check": "node tools/release.js --check"
   }
 }
