@@ -1,0 +1,13 @@
+{
+  "$note": "generalData fields the game editor writes itself when it saves a mod. Each must be a known field: an editor save must never give FIELD-001. Add new fields here (with the save they were seen in) together with the schema change.",
+  "generalData": [
+    { "path": "gameplay.raceRules.instantQualiAttempts", "value": 3, "seen": "editor save 2026-11-12 (schema 0.3.3)" },
+    { "path": "gameplay.raceRules.instantQualiLevelSpread", "value": 1, "seen": "editor save 2026-11-12 (schema 0.3.3)" },
+    { "path": "driverGeneration.coefHomeMin", "value": 1, "seen": "editor save 2026-11-05, empty categories" },
+    { "path": "driverGeneration.coefHomeMax", "value": 1, "seen": "editor save 2026-11-05, empty categories" },
+    { "path": "driverGeneration.coefOtherMin", "value": 1, "seen": "editor save 2026-11-05, empty categories" },
+    { "path": "driverGeneration.coefOtherMax", "value": 1, "seen": "editor save 2026-11-05, empty categories" },
+    { "path": "disable3DView", "value": false, "seen": "editor save 2026-11-05, empty categories" },
+    { "path": "aiLiveryRefresh", "value": true, "seen": "editor save 2026-11-05, empty categories" }
+  ]
+}
