@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.4] — 2026-11-17
+
+### English
+- `disable3DView`, `aiLiveryRefresh` and `gameplay.raceRules.startType` are now known fields in `generalData` (and in the `general` block of additional categories). The game editor (0.8) writes them itself (seen in an editor save of 2026-11-05: 3D view off, rolling start), so they no longer give an "unknown field" warning.
+
+### Nederlands
+- `disable3DView`, `aiLiveryRefresh` en `gameplay.raceRules.startType` zijn nu bekende velden in `generalData` (en in het `general`-blok van extra categorieën). De editor van de game (0.8) schrijft ze zelf (gezien in een editorsave van 2026-11-05: 3D-weergave uit, rollende start), dus ze geven geen waarschuwing "onbekend veld" meer.
+
 ## [0.3.3] — 2026-11-12
 
 ### English
