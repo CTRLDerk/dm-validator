@@ -58,6 +58,7 @@ engine.js           JSON parser with line numbers + checks
 worker.js           runs the check in the background
 schema/dm-0.7.json  fields, types, ranges and allowed values (Delta Manager 0.0.8)
 i18n/*.json         interface texts (EN, NL, FR, DE)
+tests/              automatic tests: npm test (no dependencies)
 ```
 
 ## Feedback
